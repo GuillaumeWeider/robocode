@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
+  /* CLASSES */
+
   class Pinceau {
     constructor() {
       this.button_pressed = false;
@@ -121,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   }
 
+  /* VARIABLES */
+
   var pinceau = new Pinceau();
   var gomme = new Gomme();
   var ligne = new Ligne();
@@ -128,33 +132,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var monOutil = pinceau;
   var taille = 15;
-
-  $('input[type=radio]').on('change', function() {
-    outil = $('input[name=outil]:checked').val();
-
-    switch (outil) {
-      case 'pinceau':
-        monOutil = pinceau;
-        document.getElementById('canvasSouris').style.cursor = "none";
-        break;
-      case 'gomme':
-        monOutil = gomme;
-        document.getElementById('canvasSouris').style.cursor = "none";
-        break;
-      case 'ligne':
-        monOutil = ligne;
-        document.getElementById('canvasSouris').style.cursor = "none";
-        break;
-      case 'rectangle':
-        monOutil = rectangle;
-        document.getElementById('canvasSouris').style.cursor = "crosshair";
-        break;
-    }
-  })
-
-  $('input[type=range]').on('change', function() {
-    taille = $('input[name=taille]').val();
-  })
 
   var cvsDessin = document.getElementById('canvasDessin');
   var ctxDessin = cvsDessin.getContext("2d");
@@ -165,6 +142,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var ctxSouris = cvsSouris.getContext("2d");
   cvsSouris.width = cvsDessin.width;
   cvsSouris.height = cvsDessin.height;
+
+  /* FUNCTIONS */
 
   function positionSouris(event) {
     var rect = event.target.getBoundingClientRect();
@@ -214,6 +193,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };
   }
 
+  function loadNewImage(id, key) {
+    document.getElementById(id).addEventListener('click', function() {
+      document.getElementById('fenetre_ouverture').style.display = "none";
+      openImg(key);
+    });
+  }
+
+  function deleteImage(id, key) {
+    document.getElementById(id).addEventListener('click', function() {
+      document.getElementById('fenetre_ouverture').style.display = "none";
+      localStorage.removeItem(key);
+    });
+  }
+
+  /* EVENTS */
+
   canvasSouris.addEventListener("mousedown", function(event) {
     var position = positionSouris(event);
     monOutil.buttonDown(position.posX, position.posY);
@@ -239,20 +234,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById('fenetre_enregistrement').style.display = "none";
     clear(ctxDessin);
   })
-
-  function loadNewImage(id, key) {
-    document.getElementById(id).addEventListener('click', function() {
-      document.getElementById('fenetre_ouverture').style.display = "none";
-      openImg(key);
-    });
-  }
-
-  function deleteImage(id, key) {
-    document.getElementById(id).addEventListener('click', function() {
-      document.getElementById('fenetre_ouverture').style.display = "none";
-      localStorage.removeItem(key);
-    });
-  }
 
   ouvrir.addEventListener("click", function(event) {
     var ul = document.getElementById("images");
@@ -312,6 +293,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   annulerOuverture.addEventListener("click", function(event) {
     document.getElementById('fenetre_ouverture').style.display = "none";
+  })
+
+  $('input[type=radio]').on('change', function() {
+    outil = $('input[name=outil]:checked').val();
+
+    switch (outil) {
+      case 'pinceau':
+        monOutil = pinceau;
+        document.getElementById('canvasSouris').style.cursor = "none";
+        break;
+      case 'gomme':
+        monOutil = gomme;
+        document.getElementById('canvasSouris').style.cursor = "none";
+        break;
+      case 'ligne':
+        monOutil = ligne;
+        document.getElementById('canvasSouris').style.cursor = "none";
+        break;
+      case 'rectangle':
+        monOutil = rectangle;
+        document.getElementById('canvasSouris').style.cursor = "crosshair";
+        break;
+    }
+  })
+
+  $('input[type=range]').on('change', function() {
+    taille = $('input[name=taille]').val();
   })
 
 });

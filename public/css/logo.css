@@ -14,7 +14,8 @@
 #canvasSouris {
   z-index: 1;
   opacity: 0.8;
-  cursor: none;}
+  cursor: none;
+}
 
 #boutton {
   position: absolute;
@@ -26,19 +27,6 @@
 
 #taille {
   width: 50px;
-}
-
-#nouveau, #ouvrir, #enregistrer, #pinceau, #gomme, #ligne, #rectangle {
-  width: 50px;
-  height: 50px;
-}
-
-#pinceau, #gomme, #ligne, #rectangle {
-  border: 1px solid black;
-}
-
-#nouveau, #ouvrir, #enregistrer, #taille {
-  margin-top: 15px;
 }
 
 #fenetre_enregistrement {
@@ -100,11 +88,26 @@
   background-color: #aaaaaa;
 }
 
-li{
+li {
   list-style-type: none;
 }
 
 #images img {
   float: right;
   margin-right: 50px;
+}
+
+/* A modifier */
+
+#nouveau, #ouvrir, #enregistrer, #pinceau, #gomme, #ligne, #rectangle {
+  width: 50px;
+  height: 50px;
+}
+
+#pinceau, #gomme, #ligne, #rectangle {
+  border: 1px solid black;
+}
+
+#nouveau, #ouvrir, #enregistrer, #taille {
+  margin-top: 15px;
 }
