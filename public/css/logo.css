@@ -1,0 +1,110 @@
+#canvasDessin, #canvasSouris {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  border: 1px solid black;
+}
+
+#canvasDessin {
+  z-index: 0;
+  background-image: url("../images/bgDessin.png");
+  background-size: 30px;
+}
+
+#canvasSouris {
+  z-index: 1;
+  opacity: 0.8;
+  cursor: none;}
+
+#boutton {
+  position: absolute;
+  left: 610px;
+  top: 100px;
+  width: 60px;
+  padding-top: 25px;
+}
+
+#taille {
+  width: 50px;
+}
+
+#nouveau, #ouvrir, #enregistrer, #pinceau, #gomme, #ligne, #rectangle {
+  width: 50px;
+  height: 50px;
+}
+
+#pinceau, #gomme, #ligne, #rectangle {
+  border: 1px solid black;
+}
+
+#nouveau, #ouvrir, #enregistrer, #taille {
+  margin-top: 15px;
+}
+
+#fenetre_enregistrement {
+  position: absolute;
+  left: 200px;
+  top: 250px;
+  width: 300px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 5px;
+  z-index: 3;
+  display: none;
+}
+
+#nom {
+  position: relative;
+  margin: auto;
+  width: 250px;
+}
+
+#annulerEnregistrement, #valider {
+  margin-top: 10px;
+}
+
+#annulerOuverture {
+  position: absolute;
+  bottom: 10px;
+  left: 120px;
+}
+
+#fenetre_ouverture {
+  position: absolute;
+  left: 200px;
+  top: 200px;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  border: 1px solid black;
+  padding-top: 5px;
+  z-index: 3;
+  display: none;
+  overflow: auto;
+  padding-left: 60px;
+}
+
+#images {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.radio_item {
+  display: none !important;
+}
+
+.radio_item:checked+label {
+  background-color: #aaaaaa;
+}
+
+li{
+  list-style-type: none;
+}
+
+#images img {
+  float: right;
+  margin-right: 50px;
+}

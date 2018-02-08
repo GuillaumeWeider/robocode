@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>chat</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/chat.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- CONNEXION-->
+
+  <div id="connexion">
+    Choisissez votre pseudo
+    <input type="text" placeholder="Tapez ici votre pseudo" id="pseudo">
+    <input type="button" value="Se connecter" id="validerConnexion">
+    <input type="button" value="Retour à l'accueil">
+  </div>
+
+  <!-- CHAT-->
+
+  <div id="salon">
+    <p id="title"></p>
+    <div id="box_messages">
+      <ul id="messages"></ul>
+    </div>
+    <div id="box_users">
+      <ul id="users"></ul>
+    </div>
+
+    <div id="box">
+      <input type="text" id="textMessage">
+      <input type="button" value="Envoyer" id="envoyerMessage">
+      <input type="button" value="Retour à l'accueil" id="quitter">
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js "></script>
+  <script src="../js/bootstrap.min.js "></script>
+  <script src="../js/chat.js "></script>
+</body>

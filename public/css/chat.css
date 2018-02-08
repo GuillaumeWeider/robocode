@@ -1,0 +1,70 @@
+body {
+  background-color: #cccccc;
+}
+
+#connexion {
+  position: absolute;
+  left: 40vw;
+  top: 30vh;
+  width: 300px;
+  height: 120px;
+  text-align: center;
+  background-color: white;
+  padding-top: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px;
+}
+
+#pseudo {
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#salon {
+  display: none;
+  background-color: #EADFC9;
+  width: 1000px;
+  height: 680px;
+}
+
+#box_messages, #box_users {
+  position: absolute;
+  overflow: auto;
+  background-color: white;
+}
+
+li {
+  list-style-type: none;
+}
+
+#box_messages {
+  height: 580px;
+  width: 780px;
+  margin-left: 10px;
+}
+
+#box_users {
+  left: 800px;
+  height: 580px;
+  width: 190px;
+}
+
+#box {
+  position: absolute;
+  top: 640px;
+  height: 40px;
+  width: 1000px;
+}
+
+#textMessage {
+  margin-left: 20px;
+  width: 760px;
+}
+
+p {
+  font-size: 18px;
+  padding-top: 5px;
+  padding-left: 10px;
+}

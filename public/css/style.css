@@ -1,0 +1,140 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  text-align: justify;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+.navbar .glyphicon { /*icons navbar*/
+  padding-right: 5px;
+}
+
+h2 .glyphicon {
+  padding-right: 1.5vh;
+}
+
+.jumbotron {
+  margin-top: 1vh;
+  padding-left: 8vh;
+}
+
+.carousel {
+  width: 518px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p {
+  font-size: 15px;
+}
+
+.caret {
+  border-width: 6px 6px;
+  margin-right: 1vh;
+}
+
+.chenilles {
+  position: absolute;
+  z-index: 1;
+  width: 53px;
+  height: 81px;
+}
+
+.corps {
+  position: absolute;
+  z-index: 2;
+  margin-top: 20px;
+  width: 74px;
+  height: 41px;
+}
+
+.img-char {
+  margin-left: 8vh;
+  position: relative;
+  width: 74;
+  height: 81px;
+}
+
+.phone {
+  float: left;
+  font-size: 120px;
+}
+
+.globe {
+  float: left;
+  font-size: 120px;
+  margin-right: 2vh;
+}
+
+.action-img {
+  position: relative;
+  height: 100px;
+  width: 100px;
+  float: left;
+}
+
+.action-img-1 {
+  position: absolute;
+  margin-left: 3vh;
+  margin-right: 1vh;
+  margin-top: 3vh;
+  z-index: 2;
+}
+
+.action-img-2 {
+  position: absolute;
+  z-index: 1;
+  transform: rotate(-5deg);
+}
+
+input {
+    display: none;
+}
+
+input + label + div{
+    display: none;
+    padding-left: 1vh;
+}
+
+input:checked + label + div {
+    display: block;
+}
+
+input:checked + label > h4 > span {
+  transform: rotate(90deg);
+}
+
+label {
+    display: block;
+    margin-top: 2vh;
+}
+
+.footer {
+  height: 40px;
+  background-color: #e5e5e5;
+  color: grey;
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 5vh;
+}
