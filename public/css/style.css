@@ -112,11 +112,11 @@ input[type=checkbox]:checked+h4+div {
 }
 
 .robot .body.red {
-  background-image: url(images/robot-corps-rouge.png);
+  background-image: url(../images/robot-corps-rouge.png);
 }
 
 .robot .body.blue {
-  background-image: url(images/robot-corps-bleu.png);
+  background-image: url(../images/robot-corps-bleu.png);
 }
 
 /* chacune des roues */
@@ -127,7 +127,7 @@ input[type=checkbox]:checked+h4+div {
   width: 60px;
   height: calc(60px / 107 * 54);
   z-index: 0;
-  background-image: url(images/robot-chenilles.png);
+  background-image: url(../images/robot-chenilles.png);
   background-size: cover;
 }
 
