@@ -42,7 +42,7 @@ input[type=checkbox]:checked+h4+div {
 
 /** cacher les robots lorsque l'affichage est réduit */
 
-@media all and (max-width: 765px) {
+@media all and (max-width:765px) {
   .robotzone {
     display: none;
   }
@@ -179,7 +179,7 @@ input[type=checkbox]:checked+h4+div {
   height: auto;
 }
 
-@media screen and (max-width: 518px) {
+@media screen and (max-width:518px) {
   #myCarousel {
     width: 100% !important;
   }
@@ -253,7 +253,7 @@ footer {
   color: red;
 }
 
-@media screen and (max-width: 765px) {
+@media screen and (max-width:765px) {
   .myFlex {
     flex-direction: column;
     align-content: flex-start;
