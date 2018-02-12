@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     mouseMove(x, y) {
       if (this.button_pressed) {
+        clear(ctxSouris);
         dessinRectangle(this.x, this.y, x - this.x, y - this.y, ctxSouris);
       }
     }
