@@ -1,13 +1,31 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   var GRID_SIZE = 9;
+  var NB_ACTION = 5;
 
-  class robot {
-    constructor(team, x, y, direction) {
+  class Game {
+    constructor() {
+      this.finish = false;
+    }
+
+    start() {
+      this.init();
+    }
+
+    init(){
+      red_robot = new Robot();
+      blue_robot = new Robot();
+    }
+  }
+
+  class Robot {
+    constructor(team, x, y, direction, nb_action) {
       this.team = team;
       this.x = x;
       this.y = y;
       this.direction = direction;
+      this.action = new array(nb_action);
+      this.flag = undefined;
     }
 
     moveForward() {
@@ -39,8 +57,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    oritentate(direction) m{
+    oritentate(direction) {
       this.direction = direction
+    }
+
+    // ACTIONS
+
+    take() {
+
     }
 
     repel(opponent_robot) {
@@ -58,6 +82,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
+    north() {
+      this.orientate("north");
+    }
+
+    south() {
+      this.orientate("south");
+    }
+
+    east() {
+      this.orientate("east");
+    }
+
+    west() {
+      this.orientate("west");
+    }
+
+  }
+
+  class Flag {
+    constructor(team, x, y) {
+      this.team = team;
+      this.x = x;
+      this.y = y;
+    }
+
+    isValide() {
+
+    }
   }
 
 });
