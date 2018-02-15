@@ -4,7 +4,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 740px;
-    height: 600px;
+    height: 500px;
     margin: 50px auto;
     border: 1px solid #bdc3c7;
 }
@@ -30,8 +30,8 @@
   background-color: #74b9ff ;
 }
 
-#case1Red, #case2Red, #case3Red, #case4Red, #case5Red, #case1Blue, #case2Blue, #case3Blue, #case4Blue, #case5Blue {
-  font-size: 50px;
+#caseLogoRed, #case1Red, #case2Red, #case3Red, #case4Red, #case5Red, #caseLogoBlue, #case1Blue, #case2Blue, #case3Blue, #case4Blue, #case5Blue {
+  font-size: 35px;
   line-height: 55px;
   color: white;
   text-align: center;
@@ -61,8 +61,7 @@
 }
 
 .blueSpawn {
-  background-color: #74b9ff;
-  opacity: 0.7;
+  background-color: #6a89cc;
 }
 
 table {
@@ -76,4 +75,58 @@ td {
   text-align: center;
   width: 50px;
   height:50px;
+}
+
+/* robot */
+
+.robot {
+  position: relative;
+  transform-origin: center center;
+  width: 50px;
+  height: calc(82px * 50 / 148);
+}
+
+/* corps du robot */
+
+.robot .body {
+  position: relative;
+  top: -20px;
+  right: -5px;
+  background-size: cover;
+  display: block;
+  width: 40px;
+  height: calc(82px * 40 / 148);
+  z-index: 1;
+}
+
+.robot .body.red {
+  background-image: url(../images/robot-corps-rouge.png);
+  transform: rotate(0deg);
+}
+
+.robot .body.blue {
+  background-image: url(../images/robot-corps-bleu.png);
+  transform: rotate(180deg);
+}
+
+/* chacune des roues */
+
+.robot .wheel {
+  position: relative;
+  left: 13px;
+  width: 24px;
+  height: calc(24px / 107 * 54);
+  z-index: 0;
+  background-image: url(../images/robot-chenilles.png);
+  background-size: cover;
+}
+
+.robot .wheel:nth-child(1) {
+  top: -3px;
+  background-position: 0 0;
+}
+
+.robot .wheel:nth-child(2) {
+  bottom: -8px;
+  background-position: 0 0;
 }
