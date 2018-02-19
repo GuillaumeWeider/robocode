@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--     <link rel="icon" href="../../favicon.ico"> -->
+
+    <title>Logo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/logo.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="logoBox">
+
+      <div id="dessinBox">
+        <div class="cnvs">
+          <canvas id="calque" width="500" height="500"></canvas>
+        	<canvas id="logo" width="500" height="500"></canvas>
+        </div>
+
+        <div class="parameter">
+          <ul>
+          	<li><input type="radio" id="brush" name="outil" value="1" checked><label for="brush" id="pinceau"></label></li>
+
+          	<li><input type="radio" id="rubber" name="outil" value="2"><label for="rubber" id="gomme"></label></li>
+
+            <li><input type="radio" id="line" name="outil" value="3"><label for="line" id="ligne"></label></li>
+
+            <li><input type="radio" id="rectangle" name="outil" value="4"><label for="rectangle" id="rect"></label></li>
+
+            <li><input min="1" max="30" value="15" name="size" id="size" type="range"></li>
+
+            <li class="last-items"><input type="button" id="new"><label for="new" id="nouveau"></label></li>
+
+            <li class="last-items"><input type="button" id="load"><label for="load" id="charger"></label></li>
+
+            <li class="last-items"><input type="button" id="save"><label for="save" id="sauvegarder"></label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id=conteneurListe>
+        <div id=listeImage>
+          <div id="boutonFermer"><input type="button" id="close" onclick="fermerListe()"><label for="close" id="fermer"></label></div>
+          <h4><b>Images enregistrées</b></h4>
+          <ul id="listeEnregistre">
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/logo.js"></script>
+  </body>
+</html>
