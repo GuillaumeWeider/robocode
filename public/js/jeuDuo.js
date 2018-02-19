@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.init();
     }
 
-    init(){
+    init() {
       red_robot = new Robot();
       blue_robot = new Robot();
     }
