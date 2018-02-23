@@ -17,7 +17,7 @@
 
 <body>
 
-  <div id="info">Début de la partie</div>
+  <div id="info"><span id="infoStart">Début de la partie</span><span id="infoAction">Choisissez vos actions</span></div>
   <div id="content">
 
     <div id="columnRed">
@@ -180,6 +180,20 @@
     <div id="boxCancelBlue"></div>
     <div id="boxRepeatBlue"></div>
     <div id="boxPauseBlue"></div>
+  </div>
+
+  <div id="start">
+    <button type="button" class="btn btn-info btn-lg btnStart">Play</button>
+  </div>
+
+  <div id="redChoice">
+    <button type="button" class="btn btn-default btnClearRed">Clear</button>
+    <button type="button" class="btn btn-success btnValidRed">Validate</button>
+  </div>
+
+  <div id="blueChoice">
+    <button type="button" class="btn btn-default btnClearBlue">Clear</button>
+    <button type="button" class="btn btn-success btnValidBlue">Validate</button>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
