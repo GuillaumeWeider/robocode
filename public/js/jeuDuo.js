@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var GRID_SIZE = 9;
   var NB_ACTION = 5;
 
+//Classe joueur pour récup son pseudo ? les commandes ? le logo ? 
   class Game {
     constructor() {
       this.finish = false;
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       red_robot = new Robot(); //Ajouter des paramètres ?
       blue_robot = new Robot();
       //Ajouter les drapeaux ?
+      //Récupérer les positions de tout le monde
     }
   }
 
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.direction = direction
     }
 
-    // ACTIONS
+    // ACTIONS -> faire une classe qui contient toutes les commandes
 
     take() {
 
@@ -111,6 +113,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     isValide() {
 
     }
+
+    //Position des drapeaux
+
   }
 
 });
@@ -138,7 +143,7 @@ function spawnFlag(positionArray){
     nbBlueFlag ++;
     document.getElementById(positionArray[0]).innerHTML = "<div class=\"blueFlag\"></div>";
   }
-  
+
   //Deuxième drapreau
   randomInt = getRandomInt(2);
     if(randomInt == 0){
@@ -148,7 +153,7 @@ function spawnFlag(positionArray){
     nbBlueFlag ++;
     document.getElementById(positionArray[1]).innerHTML = "<div class=\"blueFlag\"></div>";
   }
-  
+
   //Troisième drapeau
   if(nbRedFlag == 2 || nbBlueFlag == 2){
     if(nbRedFlag == 2){
@@ -168,7 +173,7 @@ function spawnFlag(positionArray){
       document.getElementById(positionArray[2]).innerHTML = "<div class=\"blueFlag\"></div>";
     }
   }
-  
+
   //Quatrième position
   if(nbRedFlag == 2){
     nbBlueFlag ++;
@@ -177,7 +182,7 @@ function spawnFlag(positionArray){
     nbRedFlag ++;
     document.getElementById(positionArray[3]).innerHTML = "<div class=\"redFlag\"></div>";
   }
-  
+
 }
 
 function spawnRobot(positionArray,color){

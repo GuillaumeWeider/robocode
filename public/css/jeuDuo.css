@@ -220,7 +220,7 @@
 table {
   border-collapse: collapse;
   border: 2px solid black;
-  background-color: #ecf0f1;
+  background-color: #e6f7ff;
 }
 
 td {
@@ -243,7 +243,7 @@ td {
   position: relative;
   transform-origin: center center;
   width: 50px;
-  height: calc(82px * 50 / 148);  
+  height: calc(82px * 50 / 148);
 }
 
 /* robot body */
