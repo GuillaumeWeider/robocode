@@ -13,8 +13,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     init() {
-      red_robot = new Robot();
+      red_robot = new Robot(); //Ajouter des paramètres ?
       blue_robot = new Robot();
+      //Ajouter les drapeaux ?
     }
   }
 
@@ -114,6 +115,77 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+var topPositionArray = [3,4,5,14];
+var bottomPositionArray = [74,83,84,85];
+var leftPositionArray = [30,40,50,41];
+var rightPositionArray = [47,38,48,58];
+
+function spawnFlag(positionArray){
+  var nbRedFlag = 0;
+  var nbBlueFlag = 0;
+
+  //Premier drapeau
+  var randomInt = getRandomInt(2);
+  if(randomInt == 0){
+    nbRedFlag ++;
+    document.getElementById(positionArray[0]).innerHTML = "<div class=\"redFlag\"></div>";
+  } else {
+    nbBlueFlag ++;
+    document.getElementById(positionArray[0]).innerHTML = "<div class=\"blueFlag\"></div>";
+  }
+  
+  //Deuxième drapreau
+  randomInt = getRandomInt(2);
+    if(randomInt == 0){
+    nbRedFlag ++;
+    document.getElementById(positionArray[1]).innerHTML = "<div class=\"redFlag\"></div>";
+  } else {
+    nbBlueFlag ++;
+    document.getElementById(positionArray[1]).innerHTML = "<div class=\"blueFlag\"></div>";
+  }
+  
+  //Troisième drapeau
+  if(nbRedFlag == 2 || nbBlueFlag == 2){
+    if(nbRedFlag == 2){
+      nbBlueFlag ++;
+      document.getElementById(positionArray[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+    } else if (nbBlueFlag == 2) {
+      nbRedFlag ++;
+      document.getElementById(positionArray[2]).innerHTML = "<div class=\"redFlag\"></div>";
+    }
+  } else {
+    randomInt = getRandomInt(2);
+    if(randomInt == 0){
+      nbRedFlag ++;
+      document.getElementById(positionArray[2]).innerHTML = "<div class=\"redFlag\"></div>";
+    } else {
+      nbBlueFlag ++;
+      document.getElementById(positionArray[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+    }
+  }
+  
+  //Quatrième position
+  if(nbRedFlag == 2){
+    nbBlueFlag ++;
+    document.getElementById(positionArray[3]).innerHTML = "<div class=\"blueFlag\"></div>";
+  } else if (nbBlueFlag == 2) {
+    nbRedFlag ++;
+    document.getElementById(positionArray[3]).innerHTML = "<div class=\"redFlag\"></div>";
+  }
+  
+}
+
+function spawnRobot(positionArray,color){
+  var randomInt = getRandomInt(4);
+  document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
+}
+
+
 function clearRedAction(){
   //Remettre les images dans la liste d'actions
   document.getElementById("boxNorthRed").style.backgroundImage = "url('../images/nord-rouge.png')";
@@ -178,6 +250,10 @@ $(document).ready(function(){
         $("#infoStart").css("display", "none").hide().fadeOut();
         $("#infoAction").css("display", "inline").hide().fadeIn();
         document.getElementById("info").style.background = "#e66465";
+	spawnFlag(topPositionArray);
+	spawnFlag(bottomPositionArray);
+	spawnRobot(leftPositionArray,"red");
+	spawnRobot(rightPositionArray,"blue");
     });
 
     $(".btnClearRed").click(function(){
