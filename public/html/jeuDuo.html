@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Jeu duo</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/jeuDuo.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div id="info"><span id="infoStart">Début de la partie</span><span id="infoAction">Choisissez vos actions</span></div>
+
+  <div id="content">
+
+    <div id="columnRed">
+      <div id="boxLogoRed">P1</div>
+      <div id="box1Red">1</div>
+      <div id="box2Red">2</div>
+      <div id="box3Red">3</div>
+      <div id="box4Red">4</div>
+      <div id="box5Red">5</div>
+    </div>
+
+    <table>
+      <tr>
+        <td id="0">0,0</td>
+        <td id="1">0,1</td>
+        <td id="2">0,2</td>
+        <td id="3" class="flagSpawn">0,3</td>
+        <td id="4" class="flagSpawn">0,4</td>
+        <td id="5" class="flagSpawn">0,5</td>
+        <td id="6">0,6</td>
+        <td id="7">0,7</td>
+        <td id="8">0,8</td>
+      </tr>
+      <tr>
+        <td id="10">1,0</td>
+        <td id="12">1,1</td>
+        <td id="13">1,2</td>
+        <td id="13">1,3</td>
+        <td id="14" class="flagSpawn">1,4</td>
+        <td id="15">1,5</td>
+        <td id="16">1,6</td>
+        <td id="17">1,7</td>
+        <td id="18">1,8</td>
+      </tr>
+      <tr>
+        <td id="20">2,0</td>
+        <td id="21">2,1</td>
+        <td id="22">2,2</td>
+        <td id="23">2,3</td>
+        <td id="24">2,4</td>
+        <td id="25">2,5</td>
+        <td id="26">2,6</td>
+        <td id="27">2,7</td>
+        <td id="28">2,8</td>
+      </tr>
+      <tr>
+        <td id="30" class="redSpawn">3,0</td>
+        <td id="31">3,1</td>
+        <td id="32">3,2</td>
+        <td id="33">3,3</td>
+        <td id="34">3,4</td>
+        <td id="35">3,5</td>
+        <td id="36">3,6</td>
+        <td id="37">3,7</td>
+        <td id="38" class="blueSpawn">3,8</td>
+      </tr>
+      <tr>
+        <td id="40" class="redSpawn">4,0</td>
+        <td id="41" class="redSpawn">4,1</td>
+        <td id="42">4,2</td>
+        <td id="43">4,3</td>
+        <td id="44">4,4</td>
+        <td id="45">4,5</td>
+        <td id="46">4,6</td>
+        <td id="47" class="blueSpawn">4,7</td>
+        <td id="48" class="blueSpawn">4,8</td>
+      </tr>
+      <tr>
+        <td id="50" class="redSpawn">5,0</td>
+        <td id="51">5,1</td>
+        <td id="52">5,2</td>
+        <td id="53">5,3</td>
+        <td id="54">5,4</td>
+        <td id="55">5,5</td>
+        <td id="56">5,6</td>
+        <td id="57">5,7</td>
+        <td id="58" class="blueSpawn">5,8</td>
+      </tr>
+      <tr>
+        <td id="60">6,0</td>
+        <td id="61">6,1</td>
+        <td id="62">6,2</td>
+        <td id="63">6,3</td>
+        <td id="64">6,4</td>
+        <td id="65">6,5</td>
+        <td id="66">6,6</td>
+        <td id="67">6,7</td>
+        <td id="68">6,8</td>
+      </tr>
+      <tr>
+        <td id="70">7,0</td>
+        <td id="71">7,1</td>
+        <td id="72">7,2</td>
+        <td id="73">7,3</td>
+        <td id="74" class="flagSpawn">7,4</td>
+        <td id="75">7,5</td>
+        <td id="76">7,6</td>
+        <td id="77">7,7</td>
+        <td id="78">7,8</td>
+      </tr>
+      <tr>
+        <td id="80">8,0</td>
+        <td id="81">8,1</td>
+        <td id="82">8,2</td>
+        <td id="83" class="flagSpawn">8,3</td>
+        <td id="84" class="flagSpawn">8,4</td>
+        <td id="85" class="flagSpawn">8,5</td>
+        <td id="86">8,6</td>
+        <td id="87">8,7</td>
+        <td id="88">8,8</td>
+      </tr>
+    </table>
+
+    <div id="columnBlue">
+      <div id="boxLogoBlue">P2</div>
+      <div id="box1Blue">1</div>
+      <div id="box2Blue">2</div>
+      <div id="box3Blue">3</div>
+      <div id="box4Blue">4</div>
+      <div id="box5Blue">5</div>
+    </div>
+
+  </div>
+
+  <div id="redAction">
+    <div id="boxNorthRed" onclick="chooseAction(redActionArray, \'North\', \'Red\', \'nord-rouge\');"></div>
+    <div id="boxSouthRed"></div>
+    <div id="boxWestRed"></div>
+    <div id="boxEastRed"></div>
+    <div id="boxEastX2Red"></div>
+    <div id="boxTakeRed"></div>
+    <div id="boxDropRed"></div>
+    <div id="boxRepelRed"></div>
+    <div id="boxCancelRed"></div>
+    <div id="boxRepeatRed"></div>
+    <div id="boxPauseRed"></div>
+  </div>
+
+  <div id="blueAction">
+    <div id="boxNorthBlue"></div>
+    <div id="boxSouthBlue"></div>
+    <div id="boxWestBlue"></div>
+    <div id="boxEastBlue"></div>
+    <div id="boxWestX2Blue"></div>
+    <div id="boxTakeBlue"></div>
+    <div id="boxDropBlue"></div>
+    <div id="boxRepelBlue"></div>
+    <div id="boxCancelBlue"></div>
+    <div id="boxRepeatBlue"></div>
+    <div id="boxPauseBlue"></div>
+  </div>
+
+  <div id="start">
+    <button type="button" class="btn btn-info btn-lg btnStart">Play</button>
+  </div>
+
+  <div id="redChoice">
+    <button type="button" class="btn btn-default btnClearRed">Clear</button>
+    <button type="button" class="btn btn-success btnValidRed">Validate</button>
+  </div>
+
+  <div id="blueChoice">
+    <button type="button" class="btn btn-default btnClearBlue">Clear</button>
+    <button type="button" class="btn btn-success btnValidBlue">Validate</button>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/jeuDuo.js"></script>
+</body>
+
+</html>

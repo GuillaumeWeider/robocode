@@ -1,0 +1,189 @@
+.logoBox{
+  margin-top : 50px;
+  margin-left : 40em;
+  overflow : auto;
+  width: 615px;
+  padding: 15px 0 25px 20px;
+  border : 2px solid black;
+}
+
+.cnvs {
+  float : left;
+}
+
+.parameter {
+  overflow : auto;
+}
+
+ul {
+  list-style-type : none;
+  padding-left : 20px;
+}
+
+li {
+  margin: 5px 0;
+}
+
+input[type="radio"], input[type="button"] {
+    display : none;
+}
+
+input:checked + label {
+  box-shadow : 0px 0px 6px #0040FF;
+}
+
+a {
+  color : black;
+}
+
+a:hover {
+  cursor : pointer;
+  text-decoration : none;
+}
+
+#pinceau {
+  background-image : url(../images/icone-pinceau.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  width : 55px;
+  height : 55px;
+  border : 1px solid black;
+}
+
+#gomme {
+  background-image : url(../images/icone-gomme.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  width : 55px;
+  height : 55px;
+  border : 1px solid black;
+}
+
+#ligne {
+  background-image : url(../images/icone-trait.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  width : 55px;
+  height : 55px;
+  border : 1px solid black;
+}
+
+#rect {
+  background-image : url(../images/icone-rectangle.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  width : 55px;
+  height : 55px;
+  border : 1px solid black;
+}
+
+#nouveau {
+  background-image : url(../images/icone-nouveau.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  margin-top : 20px;
+  margin-bottom : 0;
+  width : 50px;
+  height : 50px;
+}
+
+#charger {
+  background-image : url(../images/icone-ouvrir.png);
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  margin : 0;
+  width : 50px;
+  height : 50px;
+}
+
+#sauvegarder {
+  background-image : url(../images/icone-enregistrer.png);
+  background-color : inherit;
+  background-repeat : no-repeat;
+  background-size : 50px 50px;
+  margin : 0;
+  width : 50px;
+  height : 50px;
+}
+
+#fermer {
+  background-image : url(../images/icone-fermer.png);
+  background-repeat : no-repeat;
+  background-size : 30px 30px;
+  width : 30px;
+  height : 30px;
+}
+
+#supprimer {
+  background-image : url(../images/icone-supprimer.png);
+  background-repeat : no-repeat;
+  background-size : 25px 25px;
+  margin-left : 10px;
+  margin-bottom : -5px;
+  width : 25px;
+  height : 25px;
+}
+
+#boutonFermer {
+  position : absolute;
+  left : 290px;
+}
+
+.last-items {
+  margin : 0;
+}
+
+#size {
+  width : 50px;
+}
+
+#logo {
+  background-image : url("../images/bgDessin.png");
+  background-size : 50px 50px;
+  position : relative;
+  z-index: -1;
+}
+
+#calque:hover {
+  cursor : none;
+}
+
+#calque {
+  position : absolute;
+  opacity : 0.8;
+}
+
+#coordonnes {
+  color : blue;
+}
+
+#conteneurListe {
+    display : none;
+    width : 500px;
+    height : 500px;
+    position : absolute;
+    bottom : 27.3em;
+}
+
+#listeImage {
+  background-color : #C0C0C0;
+  border : 2px solid black;
+  border-radius : 10px;
+  width : 325px;
+  height : 375px;
+  padding-left : 20px;
+  overflow: auto;
+  list-style-type : none;
+  position : absolute;
+  left : 8em;
+  top : 5.4em;
+}
+
+#listeImage > li {
+  padding-left : 20px;
+}
+
+#dessinBox {
+  width : 100%;
+  height : 100%;
+}

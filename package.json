@@ -1,0 +1,23 @@
+{
+  "name": "robocode",
+  "version": "0.0.0",
+  "description": "",
+  "main": "myChat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuillaumeWeider/robocode"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/GuillaumeWeider/robocode/issues"
+  },
+  "dependencies": {
+    "express": "~4.16.2",
+    "body-parser": "~1.18.2"
+  }
+}

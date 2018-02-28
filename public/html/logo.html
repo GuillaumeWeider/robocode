@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Logo</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/logo.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <canvas id="canvasDessin"></canvas>
+  <canvas id="canvasSouris"></canvas>
+
+  <div id="boutton">
+    <input type="radio" name="outil" value="pinceau" id="radio1" class="radio_item" checked>
+    <label class="label_item" for="radio1"> <img id="pinceau" src="../images/icone-pinceau.png"> </label>
+
+    <input type="radio" name="outil" value="gomme" id="radio2" class="radio_item">
+    <label class="label_item" for="radio2"> <img id="gomme" src="../images/icone-gomme.png"> </label>
+
+    <input type="radio" name="outil" value="ligne" id="radio3" class="radio_item">
+    <label class="label_item" for="radio3"> <img id="ligne" src="../images/icone-trait.png"> </label>
+
+    <input type="radio" name="outil" value="rectangle" id="radio4" class="radio_item">
+    <label class="label_item" for="radio4"> <img id="rectangle" src="../images/icone-rectangle.png"> </label>
+
+    <input type="range" name="taille" min="1" max="30" value="15" id="taille">
+
+    <img id="nouveau" src="../images/icone-nouveau.png">
+    <img id="ouvrir" src="../images/icone-ouvrir.png">
+    <img id="enregistrer" src="../images/icone-enregistrer.png">
+  </div>
+
+  <div id="fenetre_enregistrement">
+    Donnez un nom à l'image
+    <input id="nom" type="text"><br>
+    <input id="annulerEnregistrement" type="button" value="Annuler">
+    <input id="ok" type="button" value="OK">
+  </div>
+
+  <div id="fenetre_ouverture">
+    <strong>Images enregistrées</strong>
+    <ul id="images">
+
+    </ul>
+    <input id="annulerOuverture" type="button" value="Annuler">
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/logo.js"></script>
+</body>
+
+</html>

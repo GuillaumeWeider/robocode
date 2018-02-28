@@ -1,0 +1,326 @@
+/* game container */
+
+#content {
+  display: flex;
+  align-vertical: top;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 740px;
+  height: 460px;
+  margin: 5px auto 50px auto;
+}
+
+/* info container */
+
+#info {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  width: 450px;
+  height: 30px;
+  margin: 100px auto 5px auto;
+  background: linear-gradient(to right, #74b9ff, #e66465);
+  box-shadow: 2px 2px 15px black;
+  border-radius: 10px;
+}
+
+#infoAction {
+  display: none;
+}
+
+/* columns */
+
+#columnBlue, #columnRed {
+  display: flex;
+  flex-direction: column;
+  align-vertical: top;
+  justify-content: space-around;
+  align-items: center;
+  width: 90px;
+  height: 450px;
+  border-radius: 10px;
+}
+
+#columnRed {
+  border: 2px solid #d63031;
+  background-color: #e66465;
+}
+
+#columnBlue {
+  border: 2px solid #0984e3;
+  background-color: #74b9ff;
+}
+
+/* boxes */
+
+#boxLogoRed, #box1Red, #box2Red, #box3Red, #box4Red, #box5Red, #boxLogoBlue, #box1Blue, #box2Blue, #box3Blue, #box4Blue, #box5Blue {
+  font-size: 35px;
+  line-height: 55px;
+  color: white;
+  text-align: center;
+}
+
+#boxLogoRed, #box1Red, #box2Red, #box3Red, #box4Red, #box5Red {
+  background-image: url("../images/block-vide-rouge.png");
+}
+
+#boxLogoBlue, #box1Blue, #box2Blue, #box3Blue, #box4Blue, #box5Blue {
+  background-image: url("../images/block-vide-bleu.png");
+}
+
+#columnRed div, #columnBlue div, #blueAction div, #redAction div {
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-size: 60px 60px;
+}
+
+/* blue actions */
+
+#blueAction {
+  display: none;
+  align-vertical: top;
+  justify-content: space-around;
+  align-items: center;
+  width: 800px;
+  height: 90px;
+  margin: 10px auto;
+  background-color: #66b5ff;
+  border: 1px solid #0984e3;
+  border-radius: 10px;
+}
+
+#boxNorthBlue:hover, #boxSouthBlue:hover, #boxWestBlue:hover, #boxEastBlue:hover,#boxWestX2Blue:hover, #boxTakeBlue:hover, #boxDropBlue:hover, #boxRepelBlue:hover, #boxCancelBlue:hover, #boxRepeatBlue:hover, #boxPauseBlu:hover {
+  cursor : pointer;
+}
+
+#boxNorthBlue {
+  background-image: url("../images/nord-bleu.png");
+}
+
+#boxSouthBlue {
+  background-image: url("../images/sud-bleu.png");
+}
+
+#boxWestBlue {
+  background-image: url("../images/ouest-bleu.png");
+}
+
+#boxEastBlue {
+  background-image: url("../images/est-bleu.png");
+}
+
+#boxWestX2Blue {
+  background-image: url("../images/ouest-x2-bleu.png");
+}
+
+#boxTakeBlue {
+  background-image: url("../images/prendre-bleu.png");
+}
+
+#boxDropBlue {
+  background-image: url("../images/deposer-bleu.png");
+}
+
+#boxRepelBlue {
+  background-image: url("../images/repousser-bleu.png");
+}
+
+#boxCancelBlue {
+  background-image: url("../images/annuler-bleu.png");
+}
+
+#boxRepeatBlue {
+  background-image: url("../images/x2-bleu.png");
+}
+
+#boxPauseBlue {
+  background-image: url("../images/pause-bleu.png");
+}
+
+/* red actions */
+
+#redAction {
+  display: none;
+  align-vertical: top;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 800px;
+  height: 90px;
+  margin: 10px auto;
+  background-color: #ff6666;
+  border: 1px solid #d63031;
+  border-radius: 10px;
+}
+
+#boxNorthRed:hover, #boxSouthRed:hover, #boxWestRed:hover, #boxEastRed:hover, #boxEastX2Red:hover, #boxTakeRed:hover, #boxDropRed:hover, #boxRepelRed:hover, #boxCancelRed:hover, #boxRepeatRed:hover, #boxPauseRed:hover{
+  cursor : pointer;
+}
+
+#boxNorthRed {
+  background-image: url("../images/nord-rouge.png");
+}
+
+#boxSouthRed {
+  background-image: url("../images/sud-rouge.png");
+}
+
+#boxWestRed {
+  background-image: url("../images/ouest-rouge.png");
+}
+
+#boxEastRed {
+  background-image: url("../images/est-rouge.png");
+}
+
+#boxEastX2Red {
+  background-image: url("../images/est-x2-rouge.png");
+}
+
+#boxTakeRed {
+  background-image: url("../images/prendre-rouge.png");
+}
+
+#boxDropRed {
+  background-image: url("../images/deposer-rouge.png");
+}
+
+#boxRepelRed {
+  background-image: url("../images/repousser-rouge.png");
+}
+
+#boxCancelRed {
+  background-image: url("../images/annuler-rouge.png");
+}
+
+#boxRepeatRed {
+  background-image: url("../images/x2-rouge.png");
+}
+
+#boxPauseRed {
+  background-image: url("../images/pause-rouge.png");
+}
+
+/* spawn */
+
+.flagSpawn {
+  background-color: #b3ffda;
+}
+
+.redSpawn {
+  background-color: #ffb3b3;
+}
+
+.blueSpawn {
+  background-color: #b3d9ff;
+}
+
+/* grid */
+
+table {
+  border-collapse: collapse;
+  border: 2px solid black;
+  background-color: #e6f7ff;
+}
+
+td {
+  border: 1px solid black;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+}
+
+/*body {
+  background-image: url("../images/FHRITP.jpeg");
+  background-repeat:no-repeat;
+  background-size: cover;
+
+}*/
+
+/* robot */
+
+.robot {
+  position: relative;
+  transform-origin: center center;
+  width: 50px;
+  height: calc(82px * 50 / 148);
+}
+
+/* robot body */
+
+.robot .body {
+  position: relative;
+  top: -20px;
+  right: -5px;
+  background-size: cover;
+  display: block;
+  width: 40px;
+  height: calc(82px * 40 / 148);
+  z-index: 1;
+}
+
+.robot .body.red {
+  background-image: url(../images/robot-corps-rouge.png);
+  transform: rotate(0deg);
+}
+
+.robot .body.blue {
+  background-image: url(../images/robot-corps-bleu.png);
+  transform: rotate(180deg);
+}
+
+/* wheels */
+
+.robot .wheel {
+  position: relative;
+  left: 13px;
+  width: 24px;
+  height: calc(24px / 107 * 54);
+  z-index: 0;
+  background-image: url(../images/robot-chenilles.png);
+  background-size: cover;
+}
+
+.robot .wheel:nth-child(1) {
+  top: -3px;
+  background-position: 0 0;
+}
+
+.robot .wheel:nth-child(2) {
+  bottom: -8px;
+  background-position: 0 0;
+}
+
+/* flags */
+
+.blueFlag, .redFlag {
+  position: relative;
+  background-size: cover;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.blueFlag {
+  background-image: url(../images/flag-blue.png);
+}
+
+.redFlag {
+  background-image: url(../images/flag-red.png);
+}
+
+/* button */
+
+#start {
+  width: 70px;
+  height: 47px;
+  margin: 10px auto;
+}
+
+#redChoice, #blueChoice {
+  display: none;
+  justify-content: space-between;
+  width: 160px;
+  height: 34px;
+  margin: 10px auto;
+}
