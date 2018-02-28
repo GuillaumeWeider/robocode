@@ -14,6 +14,55 @@
       spawnRobot(leftPositionArray, "red");
       spawnRobot(rightPositionArray, "blue");
     }
+
+    play() {
+      for (i = 0 ; i < NB_ACTION ; i++) {
+        switch ()
+      }
+    }
+
+    playTurn(robot, action) {
+      switch(action){
+        case 'North':
+          Command.north(robot);
+        break;
+        case 'South':
+          Command.south(robot);
+        break;
+        case 'East':
+          Command.east(robot);
+        break;
+        case 'West':
+          Command.west(robot);
+        break;
+        case 'EastX2':
+          Command.eastX2(robot);
+        break;
+        case 'WestX2':
+          Command.westX2(robot);
+        break;
+        case 'Repel':
+          Command.repel(robot);
+        break;
+        case 'Pause':
+          Command.sleep(robot);
+        break;
+        case 'Take':
+          Command.take(robot);
+        break;
+        case 'Drop':
+          Command.drop(robot);
+        break;
+        case 'Cancel':
+          Command.cancel(robot);
+        break;
+        case 'X2':
+          Command.x2(robot);
+        break;
+      }
+
+    }
+
   }
 
   class Robot {
@@ -83,10 +132,6 @@
       robot.moveForward();
     }
 
-    pause(robot) {
-
-    }
-
     eastX2(robot) {
       east(robot);
       robot.moveForward();
@@ -112,7 +157,23 @@
       }
     }
 
+    sleep(robot) {
+
+    }
+
     take(robot) {
+
+    }
+
+    drop(robot) {
+
+    }
+
+    cancel() {
+
+    }
+
+    x2() {
 
     }
 
