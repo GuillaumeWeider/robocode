@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-=======
-document.addEventListener("DOMContentLoaded", function(event) {
-
->>>>>>> bbed9eaf4d9a2d5984449f0c37be52d030ff5aeb
-  var GRID_SIZE = 9;
-  var NB_ACTION = 5;
+ var GRID_SIZE = 9;
+ var NB_ACTION = 5;
 
   //command.nomCommand(robot);
   //Classe joueur pour récup son pseudo ? les commandes ? le logo ?
@@ -26,11 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.color = color;
       this.position = position;
       this.direction = direction;
-<<<<<<< HEAD
       this.action = new Array();
-=======
-      this.action = new array();
->>>>>>> bbed9eaf4d9a2d5984449f0c37be52d030ff5aeb
       this.flag = null;
     }
 
@@ -118,12 +109,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   }
 
-<<<<<<< HEAD
-=======
-});
-
-
->>>>>>> bbed9eaf4d9a2d5984449f0c37be52d030ff5aeb
+  
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -263,12 +249,9 @@ $(document).ready(function() {
     $("#infoStart").css("display", "none").hide().fadeOut();
     $("#infoAction").css("display", "inline").hide().fadeIn();
     document.getElementById("info").style.background = "#e66465";
-<<<<<<< HEAD
     var game = new Game();
     game.start();
-=======
 
->>>>>>> bbed9eaf4d9a2d5984449f0c37be52d030ff5aeb
   });
 
   $(".btnClearRed").click(function() {
