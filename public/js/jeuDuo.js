@@ -1,3 +1,4 @@
+
  var GRID_SIZE = 9;
  var NB_ACTION = 5;
 
@@ -20,6 +21,7 @@
     constructor(color, position, direction) {
       this.color = color;
       this.position = position;
+
       this.direction = direction;
       this.action = new Array();
       this.flag = null;
@@ -109,7 +111,6 @@
 
   }
 
-  
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -248,6 +249,7 @@ $(document).ready(function() {
     $("#redChoice").css("display", "flex").hide().fadeIn();
     $("#infoStart").css("display", "none").hide().fadeOut();
     $("#infoAction").css("display", "inline").hide().fadeIn();
+
     document.getElementById("info").style.background = "#e66465";
     var game = new Game();
     game.start();
