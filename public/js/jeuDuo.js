@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-
   var GRID_SIZE = 9;
   var NB_ACTION = 5;
 
@@ -23,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.color = color;
       this.position = position;
       this.direction = direction;
-      this.action = new array();
+      this.action = new Array();
       this.flag = null;
     }
 
@@ -110,9 +108,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
   }
-
-});
-
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -253,7 +248,8 @@ $(document).ready(function() {
     $("#infoStart").css("display", "none").hide().fadeOut();
     $("#infoAction").css("display", "inline").hide().fadeIn();
     document.getElementById("info").style.background = "#e66465";
-
+    var game = new Game();
+    game.start();
   });
 
   $(".btnClearRed").click(function() {
