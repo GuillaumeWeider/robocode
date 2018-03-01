@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
 
@@ -12,12 +14,10 @@
   //Actions bleus
   var blueActionArray = [];
 
-  var game = new Game();
+  var game;
   var redRobot;
   var blueRobot;
 
-  //command.nomCommand(robot);
-  //Classe joueur pour récup son pseudo ? les commandes ? le logo ?
   class Game {
     constructor() {
       this.finish = false;
@@ -34,13 +34,20 @@
       if(turnStarter == "red"){
         for (i = 0 ; i < NB_ACTION ; i++) {
           playAction(redRobot, redActionArray[i]);
+          redRobot.refresh();
           playAction(blueRobot, blueActionArray[i]);
+          blueRobot.refresh();
         }
       }
       else{
-        playAction(blueRobot, blueActionArray[i]);
-        playAction(redRobot, redActionArray[i]);
+        for (i = 0 ; i < NB_ACTION ; i++) {
+          playAction(blueRobot, blueActionArray[i]);
+          blueRobot.refresh();
+          playAction(redRobot, redActionArray[i]);
+          redRobot.refresh();
+        }
       }
+
       turn++;
     }
 
@@ -129,6 +136,11 @@
 
     oritentate(direction) {
       this.direction = direction
+    }
+
+    refresh() {
+      // a modifier pour ne bouger que l'entiter html robot
+      document.getElementById(concact(this.y, this.x)).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
     }
 
   }
@@ -343,6 +355,7 @@
       $("#infoStart").css("display", "none").hide().fadeOut();
       $("#infoAction").css("display", "inline").hide().fadeIn();
       document.getElementById("info").style.background = "#e66465";
+      game = new Game();
       game.start();
     });
 
@@ -797,5 +810,4 @@
     }
   }
 
-
-  //setInterval(afficherMessage(), 1000);
+});
