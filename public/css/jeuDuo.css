@@ -239,7 +239,7 @@ td {
 
 /* robot */
 
-.robot-blue {
+#robot-blue {
   position: relative;
   transform-origin: center center;
   width: 50px;
@@ -247,7 +247,7 @@ td {
   transform: rotate(180deg);
 }
 
-.robot-red {
+#robot-red {
   position: relative;
   transform-origin: center center;
   width: 50px;
@@ -257,7 +257,7 @@ td {
 
 /* robot body */
 
-.robot-blue .body {
+#robot-blue .body {
   position: relative;
   top: -20px;
   right: -5px;
@@ -268,7 +268,7 @@ td {
   z-index: 1;
 }
 
-.robot-red .body {
+#robot-red .body {
   position: relative;
   top: -20px;
   right: -5px;
@@ -279,17 +279,17 @@ td {
   z-index: 1;
 }
 
-.robot-red .body.red {
+#robot-red .body.red {
   background-image: url(../images/robot-corps-rouge.png);
 }
 
-.robot-blue .body.blue {
+#robot-blue .body.blue {
   background-image: url(../images/robot-corps-bleu.png);
 }
 
 /* wheels */
 
-.robot-red .wheel {
+#robot-red .wheel {
   position: relative;
   left: 13px;
   width: 24px;
@@ -299,7 +299,7 @@ td {
   background-size: cover;
 }
 
-.robot-blue .wheel {
+#robot-blue .wheel {
   position: relative;
   left: 13px;
   width: 24px;
@@ -309,22 +309,22 @@ td {
   background-size: cover;
 }
 
-.robot-red .wheel:nth-child(1) {
+#robot-red .wheel:nth-child(1) {
   top: -3px;
   background-position: 0 0;
 }
 
-.robot-blue .wheel:nth-child(1) {
+#robot-blue .wheel:nth-child(1) {
   top: -3px;
   background-position: 0 0;
 }
 
-.robot-red .wheel:nth-child(2) {
+#robot-red .wheel:nth-child(2) {
   bottom: -8px;
   background-position: 0 0;
 }
 
-.robot-blue .wheel:nth-child(2) {
+#robot-blue .wheel:nth-child(2) {
   bottom: -8px;
   background-position: 0 0;
 }
