@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
+  const NB_FLAG_TEAM = 4;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
@@ -21,13 +22,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var redRobot;
   var blueRobot;
 
+  var blueFlag = [];
+  var redFlag = [];
+
   class Game {
     constructor() {
       this.finish = false;
     }
 
     start() {
-      spawnFlags(topPositionArray, bottomPositionArray)
+      spawnFlags(topPositionArray, 0);
+      spawnFlags(bottomPositionArray, 2);
       spawnRobot(leftPositionArray, "red");
       spawnRobot(rightPositionArray, "blue");
     }
@@ -263,164 +268,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  function spawnFlags(topPosition, botPosition) {
-    var nbRedFlagTop = 0;
-    var nbBlueFlagTop = 0;
+  function spawnFlags(position, flagArrayIndex) {
+      var nbRedFlag = flagArrayIndex;
+      var nbBlueFlag = flagArrayIndex;
 
-    //Premier drapeau
-    var randomInt = getRandomInt(2);
-    var x = Number(topPosition[0].substr(1, 1));
-    var y = Number(topPosition[0].substr(0, 1));
-    if (randomInt == 0) {
-      nbRedFlagTop++;
-      document.getElementById(topPosition[0]).innerHTML = "<div class=\"redFlag\"></div>";
-      redFlagTop1 = new Flag('red', x, y);
-    } else {
-      nbBlueFlagTop++;
-      document.getElementById(topPosition[0]).innerHTML = "<div class=\"blueFlag\"></div>";
-      blueFlagTop1 = new Flag('blue', x, y);
-    }
+      for (i = 0 ; i < NB_FLAG_TEAM ; i++) {
+        var x = Number(position[i].substr(1, 1));
+        var y = Number(position[i].substr(0, 1));
 
-    //Deuxième drapreau
-    randomInt = getRandomInt(2);
-    x = Number(topPosition[1].substr(1, 1));
-    y = Number(topPosition[1].substr(0, 1));
-    if (randomInt == 0) {
-      nbRedFlagTop++;
-      document.getElementById(topPosition[1]).innerHTML = "<div class=\"redFlag\"></div>";
-      if (nbRedFlagTop == 0) {
-        redFlagTop1 = new Flag('red', x, y);
-      } else {
-        redFlagTop2 = new Flag('red', x, y);
-      }
-    } else {
-      nbBlueFlagTop++;
-      document.getElementById(topPosition[1]).innerHTML = "<div class=\"blueFlag\"></div>";
-      if (nbRedFlagTop == 0) {
-        blueFlagTop1 = new Flag('blue', x, y);
-      } else {
-        blueFlagTop2 = new Flag('blue', x, y);
+        if (nbRedFlag < NB_FLAG_TEAM/2 && nbBlueFlag < NB_FLAG_TEAM/2) {
+          var randomInt = getRandomInt(2);
+          if (randomInt == 0) {
+            document.getElementById(position[i]).innerHTML = "<div class=\"redFlag\"></div>";
+            redFlag[nbRedFlag] = new Flag('red', x, y);
+            nbRedFlag++;
+          } else {
+            document.getElementById(position[i]).innerHTML = "<div class=\"blueFlag\"></div>";
+            blueFlag[nbBlueFlag] = new Flag('blue', x, y);
+            nbBlueFlag++;
+          }
+        }
+        else if (NB_FLAG_TEAM/2 <= nbRedFlag) {
+          document.getElementById(position[i]).innerHTML = "<div class=\"blueFlag\"></div>";
+          blueFlag[nbBlueFlag] = new Flag('blue', x, y);
+          nbBlueFlag++;
+        }
+        else{
+          document.getElementById(position[i]).innerHTML = "<div class=\"redFlag\"></div>";
+          redFlag[nbRedFlag] = new Flag('red', x, y);
+          nbRedFlag++;
+        }
       }
     }
-
-    //Troisième drapeau
-    x = Number(topPosition[2].substr(1, 1));
-    y = Number(topPosition[2].substr(0, 1));
-    if (nbRedFlagTop == 2 || nbBlueFlagTop == 2) {
-      if (nbRedFlagTop == 2) {
-        nbBlueFlagTop++;
-        document.getElementById(topPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
-        blueFlagTop1 = new Flag('blue', x, y);
-      } else if (nbBlueFlagTop == 2) {
-        nbRedFlagTop++;
-        document.getElementById(topPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
-        redFlagTop1 = new Flag('red', x, y);
-      }
-    } else {
-      randomInt = getRandomInt(2);
-      if (randomInt == 0) {
-        nbRedFlagTop++;
-        document.getElementById(topPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
-        redFlagTop2 = new Flag('red', x, y);
-      } else {
-        nbBlueFlagTop++;
-        document.getElementById(topPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
-        blueFlagTop2 = new Flag('blue', x, y);
-      }
-    }
-
-    //Quatrième position
-    x = Number(topPosition[3].substr(1, 1));
-    y = Number(topPosition[3].substr(0, 1));
-    if (nbRedFlagTop == 2) {
-      nbBlueFlagTop++;
-      document.getElementById(topPosition[3]).innerHTML = "<div class=\"blueFlag\"></div>";
-      blueFlagTop2 = new Flag('blue', x, y);
-    } else if (nbBlueFlagTop == 2) {
-      nbRedFlagTop++;
-      document.getElementById(topPosition[3]).innerHTML = "<div class=\"redFlag\"></div>";
-      redFlagTop2 = new Flag('red', x, y);
-    }
-
-    var nbRedFlagBot = 0;
-    var nbBlueFlagBot = 0;
-
-    //Premier drapeau
-    var randomInt = getRandomInt(2);
-    var x = Number(botPosition[0].substr(1, 1));
-    var y = Number(botPosition[0].substr(0, 1));
-    if (randomInt == 0) {
-      nbRedFlagBot++;
-      document.getElementById(botPosition[0]).innerHTML = "<div class=\"redFlag\"></div>";
-      redFlagBot1 = new Flag('red', x, y);
-    } else {
-      nbBlueFlagBot++;
-      document.getElementById(botPosition[0]).innerHTML = "<div class=\"blueFlag\"></div>";
-      blueFlagBot1 = new Flag('blue', x, y);
-    }
-
-    //Deuxième drapreau
-    randomInt = getRandomInt(2);
-    x = Number(botPosition[1].substr(1, 1));
-    y = Number(botPosition[1].substr(0, 1));
-    if (randomInt == 0) {
-      nbRedFlagBot++;
-      document.getElementById(botPosition[1]).innerHTML = "<div class=\"redFlag\"></div>";
-      if (nbRedFlagBot == 0) {
-        redFlagBot1 = new Flag('red', x, y);
-      } else {
-        redFlagBot2 = new Flag('red', x, y);
-      }
-    } else {
-      nbBlueFlagBot++;
-      document.getElementById(botPosition[1]).innerHTML = "<div class=\"blueFlag\"></div>";
-      if (nbRedFlagBot == 0) {
-        blueFlagBot1 = new Flag('blue', x, y);
-      } else {
-        blueFlagBot2 = new Flag('blue', x, y);
-      }
-    }
-
-    //Troisième drapeau
-    x = Number(botPosition[2].substr(1, 1));
-    y = Number(botPosition[2].substr(0, 1));
-    if (nbRedFlagBot == 2 || nbBlueFlagBot == 2) {
-      if (nbRedFlagBot == 2) {
-        nbBlueFlagBot++;
-        document.getElementById(botPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
-        blueFlagBot1 = new Flag('blue', x, y);
-      } else if (nbBlueFlagBot == 2) {
-        nbRedFlagBot++;
-        document.getElementById(botPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
-        redFlagBot1 = new Flag('red', x, y);
-      }
-    } else {
-      randomInt = getRandomInt(2);
-      if (randomInt == 0) {
-        nbRedFlagBot++;
-        document.getElementById(botPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
-        redFlagBot2 = new Flag('red', x, y);
-      } else {
-        nbBlueFlagBot++;
-        document.getElementById(botPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
-        blueFlagBot2 = new Flag('blue', x, y);
-      }
-    }
-
-    //Quatrième position
-    x = Number(botPosition[3].substr(1, 1));
-    y = Number(botPosition[3].substr(0, 1));
-    if (nbRedFlagBot == 2) {
-      nbBlueFlagBot++;
-      document.getElementById(botPosition[3]).innerHTML = "<div class=\"blueFlag\"></div>";
-      blueFlagBot2 = new Flag('blue', x, y);
-    } else if (nbBlueFlagBot == 2) {
-      nbRedFlagBot++;
-      document.getElementById(botPosition[3]).innerHTML = "<div class=\"redFlag\"></div>";
-      redFlagBot2 = new Flag('red', x, y);
-    }
-
-  }
 
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
