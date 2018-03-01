@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var turn = 1;
   //Actions rouges
   var redActionArray = [];
+  var redIndex = 0;
   //Actions bleus
   var blueActionArray = [];
+  var blueIndex = 0;
 
   var game;
   var command;
@@ -47,7 +49,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
           redRobot.refresh();
         }
       }
-
+      restartRedAction();
+      clearRedAction();
+      restartBlueAction();
+      clearBlueAction();
       turn++;
     }
 
@@ -69,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
           command.eastX2(robot);
         break;
         case 'WestX2':
-        console.log("heeeere");
           command.westX2(robot);
         break;
         case 'Repel':
@@ -141,7 +145,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      console.log(this.color + " : " + this.y + '' + this.x);
       document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
     }
 
@@ -227,6 +230,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   }
 
+  function restartBlueAction(){
+    for (i = 0 ; i < NB_ACTION ; i++){
+      blueActionArray[i] = "";
+    }
+    blueIndex = 0;
+  }
+
+  function restartRedAction(){
+    for (i = 0 ; i < NB_ACTION ; i++){
+      redActionArray[i] = "";
+    }
+    redIndex = 0;
+  }
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -420,16 +436,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("boxPauseRed").style.backgroundImage = "url('../images/pause-rouge.png')";
 
     //Remettre les nums et changer les images
-    document.getElementById("box1Red").innerHTML = "1";
-    document.getElementById("box2Red").innerHTML = "2";
-    document.getElementById("box3Red").innerHTML = "3";
-    document.getElementById("box4Red").innerHTML = "4";
-    document.getElementById("box5Red").innerHTML = "5";
+    document.getElementById("box0Red").innerHTML = "1";
+    document.getElementById("box1Red").innerHTML = "2";
+    document.getElementById("box2Red").innerHTML = "3";
+    document.getElementById("box3Red").innerHTML = "4";
+    document.getElementById("box4Red").innerHTML = "5";
+    document.getElementById("box0Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box1Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box2Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box3Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box4Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
-    document.getElementById("box5Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
   }
 
   function clearBlueAction() {
@@ -447,16 +463,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("boxPauseBlue").style.backgroundImage = "url('../images/pause-bleu.png')";
 
     //Remettre les nums et changer les images
-    document.getElementById("box1Blue").innerHTML = "1";
-    document.getElementById("box2Blue").innerHTML = "2";
-    document.getElementById("box3Blue").innerHTML = "3";
-    document.getElementById("box4Blue").innerHTML = "4";
-    document.getElementById("box5Blue").innerHTML = "5";
+    document.getElementById("box0Blue").innerHTML = "1";
+    document.getElementById("box1Blue").innerHTML = "2";
+    document.getElementById("box2Blue").innerHTML = "3";
+    document.getElementById("box3Blue").innerHTML = "4";
+    document.getElementById("box4Blue").innerHTML = "5";
+    document.getElementById("box0Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box1Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box2Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box3Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box4Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
-    document.getElementById("box5Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
   }
 
   $(document).ready(function() {
@@ -473,18 +489,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnClearRed").click(function() {
-      redActionArray = [];
+      restartRedAction();
       clearRedAction();
     });
 
     $(".btnValidRed").click(function() { //Check les turn pair et impair pour savoir qui a la main
-      if (redActionArray.length < 5) {
+      if (redIndex < NB_ACTION) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
         if (turn % 2 == 0) {
           //turn pair
+          clearRedAction();
           alert("Début des hostilités");
-          clearBlueAction();
           game.play("blue");
         } else {
           //turn impair
@@ -499,12 +515,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnClearBlue").click(function() {
-      blueActionArray = [];
+      restartBlueAction();
       clearBlueAction();
     });
 
     $(".btnValidBlue").click(function() {
-      if (blueActionArray.length < 5) {
+      if (blueIndex < NB_ACTION) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
         if (turn % 2 == 0) {
@@ -514,11 +530,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
           $("#redAction").css("display", "flex").hide().fadeIn();
           $("#redChoice").css("display", "flex").hide().fadeIn();
           document.getElementById("info").style.background = "#e66465";
-          clearRedAction();
+          clearBlueAction();
         } else {
           //turn impair
-          alert("Début des hostilités");
           clearBlueAction();
+          alert("Début des hostilités");
           game.play("red");
         }
 
@@ -528,7 +544,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   document.getElementById("boxNorthRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'North') {
@@ -536,17 +552,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/nord-rouge.png')";
-        redActionArray.push('North');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/nord-rouge.png')";
+        redActionArray[redIndex] = 'North';
         document.getElementById("boxNorthRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxSouthRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'South') {
@@ -554,17 +570,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/sud-rouge.png')";
-        redActionArray.push('South');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/sud-rouge.png')";
+        redActionArray[redIndex] = 'South';
         document.getElementById("boxSouthRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxWestRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'West') {
@@ -572,17 +588,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/ouest-rouge.png')";
-        redActionArray.push('West');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/ouest-rouge.png')";
+        redActionArray[redIndex] = 'West';
         document.getElementById("boxWestRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxEastRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'East') {
@@ -590,17 +606,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/est-rouge.png')";
-        redActionArray.push('East');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-rouge.png')";
+        redActionArray[redIndex] = 'East';
         document.getElementById("boxEastRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxEastX2Red").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'EastX2') {
@@ -608,17 +624,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/est-x2-rouge.png')";
-        redActionArray.push('EastX2');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-x2-rouge.png')";
+        redActionArray[redIndex] = 'EastX2';
         document.getElementById("boxEastX2Red").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxTakeRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Take') {
@@ -626,17 +642,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/prendre-rouge.png')";
-        redActionArray.push('Take');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/prendre-rouge.png')";
+        redActionArray[redIndex] = 'Take';
         document.getElementById("boxTakeRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxDropRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Drop') {
@@ -644,17 +660,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/deposer-rouge.png')";
-        redActionArray.push('Drop');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/deposer-rouge.png')";
+        redActionArray[redIndex] = 'Drop';
         document.getElementById("boxDropRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxRepelRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Repel') {
@@ -662,17 +678,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/repousser-rouge.png')";
-        redActionArray.push('Repel');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/repousser-rouge.png')";
+        redActionArray[redIndex] = 'Repel';
         document.getElementById("boxRepelRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxCancelRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Cancel') {
@@ -680,17 +696,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/annuler-rouge.png')";
-        redActionArray.push('Cancel');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/annuler-rouge.png')";
+        redActionArray[redIndex] = 'Cancel';
         document.getElementById("boxCancelRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxRepeatRed").onclick = function() {
-    if (redActionArray.length < 5 && redActionArray.length != 0) {
+    if (redIndex < NB_ACTION && redActionArray.length != 0) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Repeat') {
@@ -698,17 +714,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/x2-rouge.png')";
-        redActionArray.push(redActionArray[redActionArray.length - 1]);
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/x2-rouge.png')";
+        redActionArray[redIndex] = redActionArray[redIndex - 1];
         document.getElementById("boxRepeatRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxPauseRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Pause') {
@@ -716,17 +732,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/pause-rouge.png')";
-        redActionArray.push('Pause');
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/pause-rouge.png')";
+        redActionArray[redIndex] = 'Pause';
         document.getElementById("boxPauseRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
 
   document.getElementById("boxNorthBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'North') {
@@ -734,17 +750,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/nord-bleu.png')";
-        blueActionArray.push('North');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/nord-bleu.png')";
+        blueActionArray[blueIndex] = 'North';
         document.getElementById("boxNorthBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxSouthBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'South') {
@@ -752,17 +768,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/sud-bleu.png')";
-        blueActionArray.push('South');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/sud-bleu.png')";
+        blueActionArray[blueIndex] = 'South';
         document.getElementById("boxSouthBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxWestBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'West') {
@@ -770,17 +786,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/ouest-bleu.png')";
-        blueActionArray.push('West');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-bleu.png')";
+        blueActionArray[blueIndex] = 'West';
         document.getElementById("boxWestBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxEastBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'East') {
@@ -788,17 +804,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/est-bleu.png')";
-        blueActionArray.push('East');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/est-bleu.png')";
+        blueActionArray[blueIndex] = 'East';
         document.getElementById("boxEastBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxWestX2Blue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'WestX2') {
@@ -806,17 +822,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
-        blueActionArray.push('WestX2');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
+        blueActionArray[blueIndex] = 'WestX2';
         document.getElementById("boxWestX2Blue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxTakeBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Take') {
@@ -824,17 +840,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/prendre-bleu.png')";
-        blueActionArray.push('Take');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/prendre-bleu.png')";
+        blueActionArray[blueIndex] = 'Take';
         document.getElementById("boxTakeBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxDropBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Drop') {
@@ -842,17 +858,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/deposer-bleu.png')";
-        blueActionArray.push('Drop');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/deposer-bleu.png')";
+        blueActionArray[blueIndex] = 'Drop';
         document.getElementById("boxDropBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxRepelBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Repel') {
@@ -860,17 +876,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/repousser-bleu.png')";
-        blueActionArray.push('Repel');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/repousser-bleu.png')";
+        blueActionArray[blueIndex] = 'Repel';
         document.getElementById("boxRepelBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxCancelBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Cancel') {
@@ -878,17 +894,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/annuler-bleu.png')";
-        blueActionArray.push('Cancel');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/annuler-bleu.png')";
+        blueActionArray[blueIndex] = 'Cancel';
         document.getElementById("boxCancelBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxRepeatBlue").onclick = function() {
-    if (blueActionArray.length < 5 && blueActionArray.length != 0) {
+    if (blueIndex < NB_ACTION && blueActionArray.length != 0) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Repeat') {
@@ -896,17 +912,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/x2-bleu.png')";
-        blueActionArray.push(blueActionArray[blueActionArray.length - 1]);
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/x2-bleu.png')";
+        blueActionArray[blueIndex] = blueActionArray[blueIndex - 1];
         document.getElementById("boxRepeatBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
 
   document.getElementById("boxPauseBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Pause') {
@@ -914,11 +930,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/pause-bleu.png')";
-        blueActionArray.push('Pause');
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/pause-bleu.png')";
+        blueActionArray[blueIndex] = 'Pause';
         document.getElementById("boxPauseBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
