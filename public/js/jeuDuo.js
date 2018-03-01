@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var leftPositionArray = ["30", "40", "50", "41"];
   var rightPositionArray = ["47", "38", "48", "58"];
 
+  var cptr = 0;
   var turn = 1;
+  var intrvl1;
+  var intrvl2;
   //Actions rouges
   var redActionArray = [];
   var redIndex = 0;
@@ -35,30 +38,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
       spawnFlag(bottomPositionArray, 2)
       spawnRobot(leftPositionArray, "red");
       spawnRobot(rightPositionArray, "blue");
+      command = new Command();
     }
 
-    play(turnStarter) {
+    play(turnStarter, index) {
       if(turnStarter == "red"){
-        for (i = 0 ; i < NB_ACTION ; i++) {
-          this.playAction(redRobot, redActionArray[i]);
-          redRobot.refresh();
-          this.playAction(blueRobot, blueActionArray[i]);
-          blueRobot.refresh();
-        }
+        this.playAction(redRobot, redActionArray[index]);
+        redRobot.refresh();
+        this.playAction(blueRobot, blueActionArray[index]);
+        blueRobot.refresh();
       }
       else{
-        for (i = 0 ; i < NB_ACTION ; i++) {
-          this.playAction(blueRobot, blueActionArray[i]);
-          blueRobot.refresh();
-          this.playAction(redRobot, redActionArray[i]);
-          redRobot.refresh();
-        }
+        this.playAction(blueRobot, blueActionArray[index]);
+        blueRobot.refresh();
+        this.playAction(redRobot, redActionArray[index]);
+        redRobot.refresh();
       }
-      restartRedAction();
-      clearRedAction();
-      restartBlueAction();
-      clearBlueAction();
-      turn++;
+      cptr++;
+      if(cptr > 4){
+        clearInterval(intrvl1);
+        clearInterval(intrvl2);
+        cptr = 0;
+        restartRedAction();
+        clearRedAction();
+        restartBlueAction();
+        clearBlueAction();
+        turn++;
+      }
     }
 
     playAction(robot, action) {
@@ -147,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
+      document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       switch (this.direction) {
         case 'north':
           document.getElementById("robot-" + this.color).style.transform = "rotate(-90deg)";
@@ -221,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     take(robot) {
-
+      //Pour l'affichage quand il le porte sinon quand il passe dessus on ne pourra pas l'afficher -> document.getElementById("inside-" + color).innerHTML = "<div class=\"" + color + "Flag\"></div>";
     }
 
     drop(robot) {
@@ -295,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
-    document.getElementById(positionArray[randomInt]).innerHTML = "<div id=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
+    document.getElementById(positionArray[randomInt]).innerHTML = "<div id=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + color + "\"  class=\"body " + color + "\"></div></div>";
     var x = Number(positionArray[randomInt].substr(1, 1));
     var y = Number(positionArray[randomInt].substr(0, 1));
     if (color == 'red') {
@@ -366,10 +372,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       $("#redAction").css("display", "flex").hide().fadeIn();
       $("#redChoice").css("display", "flex").hide().fadeIn();
       $("#infoStart").css("display", "none").hide().fadeOut();
-      $("#infoAction").css("display", "inline").hide().fadeIn();
+      $("#infoChoice").css("display", "inline").hide().fadeIn();
       document.getElementById("info").style.background = "#e66465";
       game = new Game();
-      command = new Command();
       game.start();
     });
 
@@ -384,8 +389,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         if (turn % 2 == 0) {
           //turn pair
+          $("#redAction").css("display", "none").hide().fadeOut();
+          $("#redChoice").css("display", "none").hide().fadeOut();
+          $("#infoChoice").css("display", "none").hide().fadeOut();
+          $("#infoAction").css("display", "inline").hide().fadeIn();
+          document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
+
           clearRedAction();
-          game.play("blue");
+          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 2000);
+
+          setTimeout(function(){
+            $("#infoAction").css("display", "none").hide().fadeOut();
+            $("#infoChoice").css("display", "inline").hide().fadeIn();
+            document.getElementById("info").style.background = "#e66465";
+            $("#redAction").css("display", "flex").hide().fadeIn();
+            $("#redChoice").css("display", "flex").hide().fadeIn();
+          }, 10000);
+
         } else {
           //turn impair
           $("#redAction").css("display", "none").hide().fadeOut();
@@ -417,8 +437,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
           clearBlueAction();
         } else {
           //turn impair
+          $("#blueAction").css("display", "none").hide().fadeOut();
+          $("#blueChoice").css("display", "none").hide().fadeOut();
+          $("#infoChoice").css("display", "none").hide().fadeOut();
+          $("#infoAction").css("display", "inline").hide().fadeIn();
+          document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
+
           clearBlueAction();
-          game.play("red");
+          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 2000);
+
+          setTimeout(function(){
+            $("#infoAction").css("display", "none").hide().fadeOut();
+            $("#infoChoice").css("display", "inline").hide().fadeIn();
+            document.getElementById("info").style.background = "#74b9ff";
+            $("#blueAction").css("display", "flex").hide().fadeIn();
+            $("#blueChoice").css("display", "flex").hide().fadeIn();
+          }, 10000);
+
         }
 
       }
