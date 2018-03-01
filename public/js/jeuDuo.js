@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
+      document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
     }
 
   }
