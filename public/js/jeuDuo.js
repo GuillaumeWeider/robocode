@@ -150,7 +150,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
+      document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
+      switch (this.direction) {
+        case 'north':
+          document.getElementById("robot-" + this.color + "").style.transform = "rotate(-90deg)";
+          break;
+        case 'east':
+          document.getElementById("robot-" + this.color + "").style.transform = "rotate(0deg)";
+          break;
+        case 'south':
+          document.getElementById("robot-" + this.color + "").style.transform = "rotate(90deg)";
+          break;
+        case 'west':
+          document.getElementById("robot-" + this.color + "").style.transform = "rotate(180deg)";
+          break;
+      }
     }
 
   }
@@ -328,7 +342,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       redFlagTop2 = new Flag('red', x, y);
     }
 
-    ////////////////////////////////////////
     var nbRedFlagBot = 0;
     var nbBlueFlagBot = 0;
 
@@ -411,13 +424,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
-    document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
+    document.getElementById(positionArray[randomInt]).innerHTML = "<div id=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
     var x = Number(positionArray[randomInt].substr(1, 1));
     var y = Number(positionArray[randomInt].substr(0, 1));
     if (color == 'red') {
-      redRobot = new Robot('red', x, y, 'East');
+      redRobot = new Robot('red', x, y, 'east');
     } else if (color == 'blue') {
-      blueRobot = new Robot('blue', x, y, 'West');
+      blueRobot = new Robot('blue', x, y, 'west');
     }
   }
 
