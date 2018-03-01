@@ -25,8 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     start() {
-      spawnFlag(topPositionArray);
-      spawnFlag(bottomPositionArray);
+      spawnFlags(topPositionArray, bottomPositionArray)
       spawnRobot(leftPositionArray, "red");
       spawnRobot(rightPositionArray, "blue");
     }
@@ -228,68 +227,174 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   }
 
+
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  function spawnFlag(positionArray) {
-    var nbRedFlag = 0;
-    var nbBlueFlag = 0;
+  function spawnFlags(topPosition, botPosition) {
+    var nbRedFlagTop = 0;
+    var nbBlueFlagTop = 0;
 
     //Premier drapeau
     var randomInt = getRandomInt(2);
+    var x = Number(topPosition[0].substr(1, 1));
+    var y = Number(topPosition[0].substr(0, 1));
     if (randomInt == 0) {
-      nbRedFlag++;
-      document.getElementById(positionArray[0]).innerHTML = "<div class=\"redFlag\"></div>";
+      nbRedFlagTop++;
+      document.getElementById(topPosition[0]).innerHTML = "<div class=\"redFlag\"></div>";
+      redFlagTop1 = new Flag('red', x, y);
     } else {
-      nbBlueFlag++;
-      document.getElementById(positionArray[0]).innerHTML = "<div class=\"blueFlag\"></div>";
+      nbBlueFlagTop++;
+      document.getElementById(topPosition[0]).innerHTML = "<div class=\"blueFlag\"></div>";
+      blueFlagTop1 = new Flag('blue', x, y);
     }
 
     //Deuxième drapreau
     randomInt = getRandomInt(2);
+    x = Number(topPosition[1].substr(1, 1));
+    y = Number(topPosition[1].substr(0, 1));
     if (randomInt == 0) {
-      nbRedFlag++;
-      document.getElementById(positionArray[1]).innerHTML = "<div class=\"redFlag\"></div>";
+      nbRedFlagTop++;
+      document.getElementById(topPosition[1]).innerHTML = "<div class=\"redFlag\"></div>";
+      if (nbRedFlagTop == 0) {
+        redFlagTop1 = new Flag('red', x, y);
+      } else {
+        redFlagTop2 = new Flag('red', x, y);
+      }
     } else {
-      nbBlueFlag++;
-      document.getElementById(positionArray[1]).innerHTML = "<div class=\"blueFlag\"></div>";
+      nbBlueFlagTop++;
+      document.getElementById(topPosition[1]).innerHTML = "<div class=\"blueFlag\"></div>";
+      if (nbRedFlagTop == 0) {
+        blueFlagTop1 = new Flag('blue', x, y);
+      } else {
+        blueFlagTop2 = new Flag('blue', x, y);
+      }
     }
 
     //Troisième drapeau
-    if (nbRedFlag == 2 || nbBlueFlag == 2) {
-      if (nbRedFlag == 2) {
-        nbBlueFlag++;
-        document.getElementById(positionArray[2]).innerHTML = "<div class=\"blueFlag\"></div>";
-      } else if (nbBlueFlag == 2) {
-        nbRedFlag++;
-        document.getElementById(positionArray[2]).innerHTML = "<div class=\"redFlag\"></div>";
+    x = Number(topPosition[2].substr(1, 1));
+    y = Number(topPosition[2].substr(0, 1));
+    if (nbRedFlagTop == 2 || nbBlueFlagTop == 2) {
+      if (nbRedFlagTop == 2) {
+        nbBlueFlagTop++;
+        document.getElementById(topPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+        blueFlagTop1 = new Flag('blue', x, y);
+      } else if (nbBlueFlagTop == 2) {
+        nbRedFlagTop++;
+        document.getElementById(topPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
+        redFlagTop1 = new Flag('red', x, y);
       }
     } else {
       randomInt = getRandomInt(2);
       if (randomInt == 0) {
-        nbRedFlag++;
-        document.getElementById(positionArray[2]).innerHTML = "<div class=\"redFlag\"></div>";
+        nbRedFlagTop++;
+        document.getElementById(topPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
+        redFlagTop2 = new Flag('red', x, y);
       } else {
-        nbBlueFlag++;
-        document.getElementById(positionArray[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+        nbBlueFlagTop++;
+        document.getElementById(topPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+        blueFlagTop2 = new Flag('blue', x, y);
       }
     }
 
     //Quatrième position
-    if (nbRedFlag == 2) {
-      nbBlueFlag++;
-      document.getElementById(positionArray[3]).innerHTML = "<div class=\"blueFlag\"></div>";
-    } else if (nbBlueFlag == 2) {
-      nbRedFlag++;
-      document.getElementById(positionArray[3]).innerHTML = "<div class=\"redFlag\"></div>";
+    x = Number(topPosition[3].substr(1, 1));
+    y = Number(topPosition[3].substr(0, 1));
+    if (nbRedFlagTop == 2) {
+      nbBlueFlagTop++;
+      document.getElementById(topPosition[3]).innerHTML = "<div class=\"blueFlag\"></div>";
+      blueFlagTop2 = new Flag('blue', x, y);
+    } else if (nbBlueFlagTop == 2) {
+      nbRedFlagTop++;
+      document.getElementById(topPosition[3]).innerHTML = "<div class=\"redFlag\"></div>";
+      redFlagTop2 = new Flag('red', x, y);
+    }
+
+    ////////////////////////////////////////
+    var nbRedFlagBot = 0;
+    var nbBlueFlagBot = 0;
+
+    //Premier drapeau
+    var randomInt = getRandomInt(2);
+    var x = Number(botPosition[0].substr(1, 1));
+    var y = Number(botPosition[0].substr(0, 1));
+    if (randomInt == 0) {
+      nbRedFlagBot++;
+      document.getElementById(botPosition[0]).innerHTML = "<div class=\"redFlag\"></div>";
+      redFlagBot1 = new Flag('red', x, y);
+    } else {
+      nbBlueFlagBot++;
+      document.getElementById(botPosition[0]).innerHTML = "<div class=\"blueFlag\"></div>";
+      blueFlagBot1 = new Flag('blue', x, y);
+    }
+
+    //Deuxième drapreau
+    randomInt = getRandomInt(2);
+    x = Number(botPosition[1].substr(1, 1));
+    y = Number(botPosition[1].substr(0, 1));
+    if (randomInt == 0) {
+      nbRedFlagBot++;
+      document.getElementById(botPosition[1]).innerHTML = "<div class=\"redFlag\"></div>";
+      if (nbRedFlagBot == 0) {
+        redFlagBot1 = new Flag('red', x, y);
+      } else {
+        redFlagBot2 = new Flag('red', x, y);
+      }
+    } else {
+      nbBlueFlagBot++;
+      document.getElementById(botPosition[1]).innerHTML = "<div class=\"blueFlag\"></div>";
+      if (nbRedFlagBot == 0) {
+        blueFlagBot1 = new Flag('blue', x, y);
+      } else {
+        blueFlagBot2 = new Flag('blue', x, y);
+      }
+    }
+
+    //Troisième drapeau
+    x = Number(botPosition[2].substr(1, 1));
+    y = Number(botPosition[2].substr(0, 1));
+    if (nbRedFlagBot == 2 || nbBlueFlagBot == 2) {
+      if (nbRedFlagBot == 2) {
+        nbBlueFlagBot++;
+        document.getElementById(botPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+        blueFlagBot1 = new Flag('blue', x, y);
+      } else if (nbBlueFlagBot == 2) {
+        nbRedFlagBot++;
+        document.getElementById(botPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
+        redFlagBot1 = new Flag('red', x, y);
+      }
+    } else {
+      randomInt = getRandomInt(2);
+      if (randomInt == 0) {
+        nbRedFlagBot++;
+        document.getElementById(botPosition[2]).innerHTML = "<div class=\"redFlag\"></div>";
+        redFlagBot2 = new Flag('red', x, y);
+      } else {
+        nbBlueFlagBot++;
+        document.getElementById(botPosition[2]).innerHTML = "<div class=\"blueFlag\"></div>";
+        blueFlagBot2 = new Flag('blue', x, y);
+      }
+    }
+
+    //Quatrième position
+    x = Number(botPosition[3].substr(1, 1));
+    y = Number(botPosition[3].substr(0, 1));
+    if (nbRedFlagBot == 2) {
+      nbBlueFlagBot++;
+      document.getElementById(botPosition[3]).innerHTML = "<div class=\"blueFlag\"></div>";
+      blueFlagBot2 = new Flag('blue', x, y);
+    } else if (nbBlueFlagBot == 2) {
+      nbRedFlagBot++;
+      document.getElementById(botPosition[3]).innerHTML = "<div class=\"redFlag\"></div>";
+      redFlagBot2 = new Flag('red', x, y);
     }
 
   }
 
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
-    document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
+    document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
     var x = Number(positionArray[randomInt].substr(1, 1));
     var y = Number(positionArray[randomInt].substr(0, 1));
     if (color == 'red') {

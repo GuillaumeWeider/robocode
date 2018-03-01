@@ -239,16 +239,25 @@ td {
 
 /* robot */
 
-.robot {
+.robot-blue {
   position: relative;
   transform-origin: center center;
   width: 50px;
   height: calc(82px * 50 / 148);
+  transform: rotate(180deg);
+}
+
+.robot-red {
+  position: relative;
+  transform-origin: center center;
+  width: 50px;
+  height: calc(82px * 50 / 148);
+  transform: rotate(0deg);
 }
 
 /* robot body */
 
-.robot .body {
+.robot-blue .body {
   position: relative;
   top: -20px;
   right: -5px;
@@ -259,19 +268,28 @@ td {
   z-index: 1;
 }
 
-.robot .body.red {
-  background-image: url(../images/robot-corps-rouge.png);
-  transform: rotate(0deg);
+.robot-red .body {
+  position: relative;
+  top: -20px;
+  right: -5px;
+  background-size: cover;
+  display: block;
+  width: 40px;
+  height: calc(82px * 40 / 148);
+  z-index: 1;
 }
 
-.robot .body.blue {
+.robot-red .body.red {
+  background-image: url(../images/robot-corps-rouge.png);
+}
+
+.robot-blue .body.blue {
   background-image: url(../images/robot-corps-bleu.png);
-  transform: rotate(180deg);
 }
 
 /* wheels */
 
-.robot .wheel {
+.robot-red .wheel {
   position: relative;
   left: 13px;
   width: 24px;
@@ -281,12 +299,32 @@ td {
   background-size: cover;
 }
 
-.robot .wheel:nth-child(1) {
+.robot-blue .wheel {
+  position: relative;
+  left: 13px;
+  width: 24px;
+  height: calc(24px / 107 * 54);
+  z-index: 0;
+  background-image: url(../images/robot-chenilles.png);
+  background-size: cover;
+}
+
+.robot-red .wheel:nth-child(1) {
   top: -3px;
   background-position: 0 0;
 }
 
-.robot .wheel:nth-child(2) {
+.robot-blue .wheel:nth-child(1) {
+  top: -3px;
+  background-position: 0 0;
+}
+
+.robot-red .wheel:nth-child(2) {
+  bottom: -8px;
+  background-position: 0 0;
+}
+
+.robot-blue .wheel:nth-child(2) {
   bottom: -8px;
   background-position: 0 0;
 }
