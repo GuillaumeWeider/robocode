@@ -53,18 +53,18 @@
 
 /* boxes */
 
-#boxLogoRed, #box1Red, #box2Red, #box3Red, #box4Red, #box5Red, #boxLogoBlue, #box1Blue, #box2Blue, #box3Blue, #box4Blue, #box5Blue {
+#boxLogoRed, #box0Red, #box1Red, #box2Red, #box3Red, #box4Red, #boxLogoBlue, #box0Blue, #box1Blue, #box2Blue, #box3Blue, #box4Blue {
   font-size: 35px;
   line-height: 55px;
   color: white;
   text-align: center;
 }
 
-#boxLogoRed, #box1Red, #box2Red, #box3Red, #box4Red, #box5Red {
+#boxLogoRed, #box0Red, #box1Red, #box2Red, #box3Red, #box4Red {
   background-image: url("../images/block-vide-rouge.png");
 }
 
-#boxLogoBlue, #box1Blue, #box2Blue, #box3Blue, #box4Blue, #box5Blue {
+#boxLogoBlue, #box0Blue, #box1Blue, #box2Blue, #box3Blue, #box4Blue {
   background-image: url("../images/block-vide-bleu.png");
 }
 

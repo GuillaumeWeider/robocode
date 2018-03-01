@@ -50,7 +50,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
           redRobot.refresh();
         }
       }
-      restartAction();
+      restartRedAction();
+      clearRedAction();
+      restartBlueAction();
+      clearBlueAction();
       turn++;
     }
 
@@ -228,13 +231,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   }
 
-  function restartAction(){
+  function restartBlueAction(){
     for (i = 0 ; i < NB_ACTION ; i++){
-      redActionArray[i] = "";
       blueActionArray[i] = "";
     }
-    redIndex = 0;
     blueIndex = 0;
+  }
+
+  function restartRedAction(){
+    for (i = 0 ; i < NB_ACTION ; i++){
+      redActionArray[i] = "";
+    }
+    redIndex = 0;
   }
 
   function getRandomInt(max) {
@@ -324,16 +332,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("boxPauseRed").style.backgroundImage = "url('../images/pause-rouge.png')";
 
     //Remettre les nums et changer les images
-    document.getElementById("box1Red").innerHTML = "1";
-    document.getElementById("box2Red").innerHTML = "2";
-    document.getElementById("box3Red").innerHTML = "3";
-    document.getElementById("box4Red").innerHTML = "4";
-    document.getElementById("box5Red").innerHTML = "5";
+    document.getElementById("box0Red").innerHTML = "1";
+    document.getElementById("box1Red").innerHTML = "2";
+    document.getElementById("box2Red").innerHTML = "3";
+    document.getElementById("box3Red").innerHTML = "4";
+    document.getElementById("box4Red").innerHTML = "5";
+    document.getElementById("box0Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box1Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box2Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box3Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
     document.getElementById("box4Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
-    document.getElementById("box5Red").style.backgroundImage = "url('../images/block-vide-rouge.png')";
   }
 
   function clearBlueAction() {
@@ -351,16 +359,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("boxPauseBlue").style.backgroundImage = "url('../images/pause-bleu.png')";
 
     //Remettre les nums et changer les images
-    document.getElementById("box1Blue").innerHTML = "1";
-    document.getElementById("box2Blue").innerHTML = "2";
-    document.getElementById("box3Blue").innerHTML = "3";
-    document.getElementById("box4Blue").innerHTML = "4";
-    document.getElementById("box5Blue").innerHTML = "5";
+    document.getElementById("box0Blue").innerHTML = "1";
+    document.getElementById("box1Blue").innerHTML = "2";
+    document.getElementById("box2Blue").innerHTML = "3";
+    document.getElementById("box3Blue").innerHTML = "4";
+    document.getElementById("box4Blue").innerHTML = "5";
+    document.getElementById("box0Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box1Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box2Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box3Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
     document.getElementById("box4Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
-    document.getElementById("box5Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
   }
 
   $(document).ready(function() {
@@ -377,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnClearRed").click(function() {
-      redActionArray = [];
+      restartRedAction();
       clearRedAction();
     });
 
@@ -387,8 +395,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         if (turn % 2 == 0) {
           //turn pair
+          clearRedAction();
           alert("Début des hostilités");
-          clearBlueAction();
           game.play("blue");
         } else {
           //turn impair
@@ -403,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnClearBlue").click(function() {
-      blueActionArray = [];
+      restartBlueAction();
       clearBlueAction();
     });
 
@@ -418,11 +426,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
           $("#redAction").css("display", "flex").hide().fadeIn();
           $("#redChoice").css("display", "flex").hide().fadeIn();
           document.getElementById("info").style.background = "#e66465";
-          clearRedAction();
+          clearBlueAction();
         } else {
           //turn impair
-          alert("Début des hostilités");
           clearBlueAction();
+          alert("Début des hostilités");
           game.play("red");
         }
 
@@ -440,11 +448,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/nord-rouge.png')";
-        redActionArray.push('North');
+        redActionArray[redIndex] = 'North';
         document.getElementById("boxNorthRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -458,11 +466,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/sud-rouge.png')";
-        redActionArray.push('South');
+        redActionArray[redIndex] = 'South';
         document.getElementById("boxSouthRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -476,11 +484,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/ouest-rouge.png')";
-        redActionArray.push('West');
+        redActionArray[redIndex] = 'West';
         document.getElementById("boxWestRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -494,11 +502,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-rouge.png')";
-        redActionArray.push('East');
+        redActionArray[redIndex] = 'East';
         document.getElementById("boxEastRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -512,11 +520,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-x2-rouge.png')";
-        redActionArray.push('EastX2');
+        redActionArray[redIndex] = 'EastX2';
         document.getElementById("boxEastX2Red").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -530,11 +538,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/prendre-rouge.png')";
-        redActionArray.push('Take');
+        redActionArray[redIndex] = 'Take';
         document.getElementById("boxTakeRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -548,11 +556,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/deposer-rouge.png')";
-        redActionArray.push('Drop');
+        redActionArray[redIndex] = 'Drop';
         document.getElementById("boxDropRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -566,11 +574,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/repousser-rouge.png')";
-        redActionArray.push('Repel');
+        redActionArray[redIndex] = 'Repel';
         document.getElementById("boxRepelRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -584,11 +592,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/annuler-rouge.png')";
-        redActionArray.push('Cancel');
+        redActionArray[redIndex] = 'Cancel';
         document.getElementById("boxCancelRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -602,11 +610,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/x2-rouge.png')";
-        redActionArray.push(redActionArray[redActionArray.length - 1]);
+        redActionArray[redIndex] = redActionArray[redIndex - 1];
         document.getElementById("boxRepeatRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -620,11 +628,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        redIndex++;
         document.getElementById("box" + redIndex + "Red").innerHTML = "";
         document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/pause-rouge.png')";
-        redActionArray.push('Pause');
+        redActionArray[redIndex] = 'Pause';
         document.getElementById("boxPauseRed").style.backgroundImage = "none";
+        redIndex++;
       }
     }
   }
@@ -638,11 +646,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/nord-bleu.png')";
-        blueActionArray.push('North');
+        blueActionArray[blueIndex] = 'North';
         document.getElementById("boxNorthBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -656,11 +664,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/sud-bleu.png')";
-        blueActionArray.push('South');
+        blueActionArray[blueIndex] = 'South';
         document.getElementById("boxSouthBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -674,11 +682,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-bleu.png')";
-        blueActionArray.push('West');
+        blueActionArray[blueIndex] = 'West';
         document.getElementById("boxWestBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -692,11 +700,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/est-bleu.png')";
-        blueActionArray.push('East');
+        blueActionArray[blueIndex] = 'East';
         document.getElementById("boxEastBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -710,11 +718,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
-        blueActionArray.push('WestX2');
+        blueActionArray[blueIndex] = 'WestX2';
         document.getElementById("boxWestX2Blue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -728,11 +736,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/prendre-bleu.png')";
-        blueActionArray.push('Take');
+        blueActionArray[blueIndex] = 'Take';
         document.getElementById("boxTakeBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -746,11 +754,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/deposer-bleu.png')";
-        blueActionArray.push('Drop');
+        blueActionArray[blueIndex] = 'Drop';
         document.getElementById("boxDropBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -764,11 +772,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/repousser-bleu.png')";
-        blueActionArray.push('Repel');
+        blueActionArray[blueIndex] = 'Repel';
         document.getElementById("boxRepelBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -782,11 +790,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/annuler-bleu.png')";
-        blueActionArray.push('Cancel');
+        blueActionArray[blueIndex] = 'Cancel';
         document.getElementById("boxCancelBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -800,11 +808,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/x2-bleu.png')";
-        blueActionArray.push(blueActionArray[blueActionArray.length - 1]);
+        blueActionArray[blueIndex] = blueActionArray[blueIndex - 1];
         document.getElementById("boxRepeatBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
@@ -818,11 +826,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        blueIndex++;
         document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
         document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/pause-bleu.png')";
-        blueActionArray.push('Pause');
+        blueActionArray[blueIndex] = 'Pause';
         document.getElementById("boxPauseBlue").style.backgroundImage = "none";
+        blueIndex++;
       }
     }
   }
