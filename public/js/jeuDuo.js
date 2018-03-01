@@ -155,19 +155,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
+      setTimeout(3000);
       document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
       switch (this.direction) {
         case 'north':
-          document.getElementById("robot-" + this.color + "").style.transform = "rotate(-90deg)";
+          document.getElementById("robot-" + this.color).style.transform = "rotate(-90deg)";
           break;
         case 'east':
-          document.getElementById("robot-" + this.color + "").style.transform = "rotate(0deg)";
+          document.getElementById("robot-" + this.color).style.transform = "rotate(0deg)";
           break;
         case 'south':
-          document.getElementById("robot-" + this.color + "").style.transform = "rotate(90deg)";
+          document.getElementById("robot-" + this.color).style.transform = "rotate(90deg)";
           break;
         case 'west':
-          document.getElementById("robot-" + this.color + "").style.transform = "rotate(180deg)";
+          document.getElementById("robot-" + this.color).style.transform = "rotate(180deg)";
           break;
       }
     }
