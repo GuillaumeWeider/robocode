@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
 
-  var topPositionArray = [3, 4, 5, 14];
-  var bottomPositionArray = [74, 83, 84, 85];
-  var leftPositionArray = [30, 40, 50, 41];
-  var rightPositionArray = [47, 38, 48, 58];
+  var topPositionArray = ["03", "04", "05", "14"];
+  var bottomPositionArray = ["74", "83", "84", "85"];
+  var leftPositionArray = ["30", "40", "50", "41"];
+  var rightPositionArray = ["47", "38", "48", "58"];
 
   var turn = 1;
   //Actions rouges
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var blueActionArray = [];
 
   var game;
+  var command;
   var redRobot;
   var blueRobot;
 
@@ -33,17 +34,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     play(turnStarter) {
       if(turnStarter == "red"){
         for (i = 0 ; i < NB_ACTION ; i++) {
-          playAction(redRobot, redActionArray[i]);
+          this.playAction(redRobot, redActionArray[i]);
           redRobot.refresh();
-          playAction(blueRobot, blueActionArray[i]);
+          this.playAction(blueRobot, blueActionArray[i]);
           blueRobot.refresh();
         }
       }
       else{
         for (i = 0 ; i < NB_ACTION ; i++) {
-          playAction(blueRobot, blueActionArray[i]);
+          this.playAction(blueRobot, blueActionArray[i]);
           blueRobot.refresh();
-          playAction(redRobot, redActionArray[i]);
+          this.playAction(redRobot, redActionArray[i]);
           redRobot.refresh();
         }
       }
@@ -54,40 +55,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
     playAction(robot, action) {
       switch(action){
         case 'North':
-          Command.north(robot);
+          command.north(robot);
         break;
         case 'South':
-          Command.south(robot);
+          command.south(robot);
         break;
         case 'East':
-          Command.east(robot);
+          command.east(robot);
         break;
         case 'West':
-          Command.west(robot);
+          command.west(robot);
         break;
         case 'EastX2':
-          Command.eastX2(robot);
+          command.eastX2(robot);
         break;
         case 'WestX2':
-          Command.westX2(robot);
+        console.log("heeeere");
+          command.westX2(robot);
         break;
         case 'Repel':
-          Command.repel(robot);
+          command.repel(robot);
         break;
         case 'Pause':
-          Command.sleep(robot);
+          command.sleep(robot);
         break;
         case 'Take':
-          Command.take(robot);
+          command.take(robot);
         break;
         case 'Drop':
-          Command.drop(robot);
+          command.drop(robot);
         break;
         case 'Cancel':
-          Command.cancel(robot);
+          command.cancel(robot);
         break;
         case 'X2':
-          Command.x2(robot);
+          command.x2(robot);
         break;
       }
 
@@ -134,13 +136,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    oritentate(direction) {
+    orientate(direction) {
       this.direction = direction
     }
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      document.getElementById(concact(this.y, this.x)).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
+      console.log(this.color + " : " + this.y + '' + this.x);
+      document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
     }
 
   }
@@ -168,12 +171,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     eastX2(robot) {
-      east(robot);
+      robot.orientate("east");
+      robot.moveForward();
       robot.moveForward();
     }
 
     westX2(robot) {
-      west(robot);
+      robot.orientate("west");
+      robot.moveForward();
       robot.moveForward();
     }
 
@@ -285,10 +290,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
     document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
+    var x = Number(positionArray[randomInt].substr(1, 1));
+    var y = Number(positionArray[randomInt].substr(0, 1));
     if (color == 'red') {
-      redRobot = new Robot('red', positionArray[randomInt], 'East');
+      redRobot = new Robot('red', x, y, 'East');
     } else if (color == 'blue') {
-      blueRobot = new Robot('blue', positionArray[randomInt], 'West');
+      blueRobot = new Robot('blue', x, y, 'West');
     }
   }
 
@@ -356,6 +363,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       $("#infoAction").css("display", "inline").hide().fadeIn();
       document.getElementById("info").style.background = "#e66465";
       game = new Game();
+      command = new Command();
       game.start();
     });
 
@@ -688,7 +696,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (blueActionArray.length < 5) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
-        if (blueActionArray[i] == 'boxWestX2Blue') {
+        if (blueActionArray[i] == 'WestX2') {
           found = true;
         }
       }
@@ -696,7 +704,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var index = blueActionArray.length + 1;
         document.getElementById("box" + index + "Blue").innerHTML = "";
         document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
-        blueActionArray.push('EastX2');
+        blueActionArray.push('WestX2');
         document.getElementById("boxWestX2Blue").style.backgroundImage = "none";
       }
     }
