@@ -1,5 +1,20 @@
-  var GRID_SIZE = 9;
-  var NB_ACTION = 5;
+  const GRID_SIZE = 9;
+  const NB_ACTION = 5;
+
+  var topPositionArray = [3, 4, 5, 14];
+  var bottomPositionArray = [74, 83, 84, 85];
+  var leftPositionArray = [30, 40, 50, 41];
+  var rightPositionArray = [47, 38, 48, 58];
+
+  var turn = 1;
+  //Actions rouges
+  var redActionArray = [];
+  //Actions bleus
+  var blueActionArray = [];
+
+  var game = new Game();
+  var redRobot;
+  var blueRobot;
 
   //command.nomCommand(robot);
   //Classe joueur pour récup son pseudo ? les commandes ? le logo ?
@@ -15,13 +30,21 @@
       spawnRobot(rightPositionArray, "blue");
     }
 
-    play() {
-      for (i = 0 ; i < NB_ACTION ; i++) {
-        switch ()
+    play(turnStarter) {
+      if(turnStarter == "red"){
+        for (i = 0 ; i < NB_ACTION ; i++) {
+          playAction(redRobot, redActionArray[i]);
+          playAction(blueRobot, blueActionArray[i]);
+        }
       }
+      else{
+        playAction(blueRobot, blueActionArray[i]);
+        playAction(redRobot, redActionArray[i]);
+      }
+      turn++;
     }
 
-    playTurn(robot, action) {
+    playAction(robot, action) {
       switch(action){
         case 'North':
           Command.north(robot);
@@ -192,11 +215,6 @@
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  var topPositionArray = [3, 4, 5, 14];
-  var bottomPositionArray = [74, 83, 84, 85];
-  var leftPositionArray = [30, 40, 50, 41];
-  var rightPositionArray = [47, 38, 48, 58];
-
   function spawnFlag(positionArray) {
     var nbRedFlag = 0;
     var nbBlueFlag = 0;
@@ -256,9 +274,9 @@
     var randomInt = getRandomInt(4);
     document.getElementById(positionArray[randomInt]).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
     if (color == 'red') {
-      red_robot = new Robot('red', positionArray[randomInt], 'East');
+      redRobot = new Robot('red', positionArray[randomInt], 'East');
     } else if (color == 'blue') {
-      blue_robot = new Robot('blue', positionArray[randomInt], 'West');
+      blueRobot = new Robot('blue', positionArray[randomInt], 'West');
     }
   }
 
@@ -317,8 +335,6 @@
     document.getElementById("box5Blue").style.backgroundImage = "url('../images/block-vide-bleu.png')";
   }
 
-  var tour = 1;
-
   $(document).ready(function() {
     $(".btnStart").click(function() {
       document.getElementById("start").style.display = "none";
@@ -327,7 +343,6 @@
       $("#infoStart").css("display", "none").hide().fadeOut();
       $("#infoAction").css("display", "inline").hide().fadeIn();
       document.getElementById("info").style.background = "#e66465";
-      var game = new Game();
       game.start();
     });
 
@@ -336,17 +351,17 @@
       clearRedAction();
     });
 
-    $(".btnValidRed").click(function() { //Check les tour pair et impair pour savoir qui a la main
+    $(".btnValidRed").click(function() { //Check les turn pair et impair pour savoir qui a la main
       if (redActionArray.length < 5) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
-        if (tour % 2 == 0) {
-          //tour pair
+        if (turn % 2 == 0) {
+          //turn pair
           alert("Début des hostilités");
           clearBlueAction();
-          tour++;
+          game.play("blue");
         } else {
-          //tour impair
+          //turn impair
           $("#redAction").css("display", "none").hide().fadeOut();
           $("#redChoice").css("display", "none").hide().fadeOut();
           $("#blueAction").css("display", "flex").hide().fadeIn();
@@ -366,8 +381,8 @@
       if (blueActionArray.length < 5) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
-        if (tour % 2 == 0) {
-          //tour pair
+        if (turn % 2 == 0) {
+          //turn pair
           $("#blueAction").css("display", "none").hide().fadeOut();
           $("#blueChoice").css("display", "none").hide().fadeOut();
           $("#redAction").css("display", "flex").hide().fadeIn();
@@ -375,20 +390,16 @@
           document.getElementById("info").style.background = "#e66465";
           clearRedAction();
         } else {
-          //tour impair
+          //turn impair
           alert("Début des hostilités");
           clearBlueAction();
-          tour++;
+          game.play("red");
         }
 
       }
     });
 
   });
-
-
-  //Actions rouges
-  var redActionArray = [];
 
   document.getElementById("boxNorthRed").onclick = function() {
     if (redActionArray.length < 5) {
@@ -587,9 +598,6 @@
       }
     }
   }
-
-  //Actions bleus
-  var blueActionArray = [];
 
   document.getElementById("boxNorthBlue").onclick = function() {
     if (blueActionArray.length < 5) {
