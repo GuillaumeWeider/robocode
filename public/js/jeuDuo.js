@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var turn = 1;
   //Actions rouges
   var redActionArray = [];
+  var redIndex = 0;
   //Actions bleus
   var blueActionArray = [];
+  var blueIndex = 0;
 
   var game;
   var command;
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           redRobot.refresh();
         }
       }
-
+      restartAction();
       turn++;
     }
 
@@ -70,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
           command.eastX2(robot);
         break;
         case 'WestX2':
-        console.log("heeeere");
           command.westX2(robot);
         break;
         case 'Repel':
@@ -142,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     refresh() {
       // a modifier pour ne bouger que l'entiter html robot
-      console.log(this.color + " : " + this.y + '' + this.x);
       document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"robot\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + this.color + "\"></div></div>";
     }
 
@@ -226,6 +226,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.y = y;
     }
 
+  }
+
+  function restartAction(){
+    for (i = 0 ; i < NB_ACTION ; i++){
+      redActionArray[i] = "";
+      blueActionArray[i] = "";
+    }
+    redIndex = 0;
+    blueIndex = 0;
   }
 
   function getRandomInt(max) {
@@ -373,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnValidRed").click(function() { //Check les turn pair et impair pour savoir qui a la main
-      if (redActionArray.length < 5) {
+      if (redIndex < NB_ACTION) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
         if (turn % 2 == 0) {
@@ -399,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     $(".btnValidBlue").click(function() {
-      if (blueActionArray.length < 5) {
+      if (blueIndex < NB_ACTION) {
         alert("Vous devez choisir vos 5 actions !");
       } else {
         if (turn % 2 == 0) {
@@ -423,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   document.getElementById("boxNorthRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'North') {
@@ -431,9 +440,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/nord-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/nord-rouge.png')";
         redActionArray.push('North');
         document.getElementById("boxNorthRed").style.backgroundImage = "none";
       }
@@ -441,7 +450,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxSouthRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'South') {
@@ -449,9 +458,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/sud-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/sud-rouge.png')";
         redActionArray.push('South');
         document.getElementById("boxSouthRed").style.backgroundImage = "none";
       }
@@ -459,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxWestRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'West') {
@@ -467,9 +476,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/ouest-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/ouest-rouge.png')";
         redActionArray.push('West');
         document.getElementById("boxWestRed").style.backgroundImage = "none";
       }
@@ -477,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxEastRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'East') {
@@ -485,9 +494,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/est-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-rouge.png')";
         redActionArray.push('East');
         document.getElementById("boxEastRed").style.backgroundImage = "none";
       }
@@ -495,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxEastX2Red").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'EastX2') {
@@ -503,9 +512,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/est-x2-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/est-x2-rouge.png')";
         redActionArray.push('EastX2');
         document.getElementById("boxEastX2Red").style.backgroundImage = "none";
       }
@@ -513,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxTakeRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Take') {
@@ -521,9 +530,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/prendre-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/prendre-rouge.png')";
         redActionArray.push('Take');
         document.getElementById("boxTakeRed").style.backgroundImage = "none";
       }
@@ -531,7 +540,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxDropRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Drop') {
@@ -539,9 +548,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/deposer-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/deposer-rouge.png')";
         redActionArray.push('Drop');
         document.getElementById("boxDropRed").style.backgroundImage = "none";
       }
@@ -549,7 +558,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepelRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Repel') {
@@ -557,9 +566,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/repousser-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/repousser-rouge.png')";
         redActionArray.push('Repel');
         document.getElementById("boxRepelRed").style.backgroundImage = "none";
       }
@@ -567,7 +576,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxCancelRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Cancel') {
@@ -575,9 +584,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/annuler-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/annuler-rouge.png')";
         redActionArray.push('Cancel');
         document.getElementById("boxCancelRed").style.backgroundImage = "none";
       }
@@ -585,7 +594,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepeatRed").onclick = function() {
-    if (redActionArray.length < 5 && redActionArray.length != 0) {
+    if (redIndex < NB_ACTION && redActionArray.length != 0) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Repeat') {
@@ -593,9 +602,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/x2-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/x2-rouge.png')";
         redActionArray.push(redActionArray[redActionArray.length - 1]);
         document.getElementById("boxRepeatRed").style.backgroundImage = "none";
       }
@@ -603,7 +612,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxPauseRed").onclick = function() {
-    if (redActionArray.length < 5) {
+    if (redIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Pause') {
@@ -611,9 +620,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = redActionArray.length + 1;
-        document.getElementById("box" + index + "Red").innerHTML = "";
-        document.getElementById("box" + index + "Red").style.backgroundImage = "url('../images/pause-rouge.png')";
+        redIndex++;
+        document.getElementById("box" + redIndex + "Red").innerHTML = "";
+        document.getElementById("box" + redIndex + "Red").style.backgroundImage = "url('../images/pause-rouge.png')";
         redActionArray.push('Pause');
         document.getElementById("boxPauseRed").style.backgroundImage = "none";
       }
@@ -621,7 +630,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxNorthBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'North') {
@@ -629,9 +638,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/nord-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/nord-bleu.png')";
         blueActionArray.push('North');
         document.getElementById("boxNorthBlue").style.backgroundImage = "none";
       }
@@ -639,7 +648,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxSouthBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'South') {
@@ -647,9 +656,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/sud-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/sud-bleu.png')";
         blueActionArray.push('South');
         document.getElementById("boxSouthBlue").style.backgroundImage = "none";
       }
@@ -657,7 +666,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxWestBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'West') {
@@ -665,9 +674,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/ouest-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-bleu.png')";
         blueActionArray.push('West');
         document.getElementById("boxWestBlue").style.backgroundImage = "none";
       }
@@ -675,7 +684,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxEastBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'East') {
@@ -683,9 +692,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/est-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/est-bleu.png')";
         blueActionArray.push('East');
         document.getElementById("boxEastBlue").style.backgroundImage = "none";
       }
@@ -693,7 +702,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxWestX2Blue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'WestX2') {
@@ -701,9 +710,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/ouest-x2-bleu.png')";
         blueActionArray.push('WestX2');
         document.getElementById("boxWestX2Blue").style.backgroundImage = "none";
       }
@@ -711,7 +720,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxTakeBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Take') {
@@ -719,9 +728,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/prendre-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/prendre-bleu.png')";
         blueActionArray.push('Take');
         document.getElementById("boxTakeBlue").style.backgroundImage = "none";
       }
@@ -729,7 +738,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxDropBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Drop') {
@@ -737,9 +746,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/deposer-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/deposer-bleu.png')";
         blueActionArray.push('Drop');
         document.getElementById("boxDropBlue").style.backgroundImage = "none";
       }
@@ -747,7 +756,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepelBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Repel') {
@@ -755,9 +764,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/repousser-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/repousser-bleu.png')";
         blueActionArray.push('Repel');
         document.getElementById("boxRepelBlue").style.backgroundImage = "none";
       }
@@ -765,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxCancelBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Cancel') {
@@ -773,9 +782,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/annuler-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/annuler-bleu.png')";
         blueActionArray.push('Cancel');
         document.getElementById("boxCancelBlue").style.backgroundImage = "none";
       }
@@ -783,7 +792,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepeatBlue").onclick = function() {
-    if (blueActionArray.length < 5 && blueActionArray.length != 0) {
+    if (blueIndex < NB_ACTION && blueActionArray.length != 0) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Repeat') {
@@ -791,9 +800,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/x2-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/x2-bleu.png')";
         blueActionArray.push(blueActionArray[blueActionArray.length - 1]);
         document.getElementById("boxRepeatBlue").style.backgroundImage = "none";
       }
@@ -801,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxPauseBlue").onclick = function() {
-    if (blueActionArray.length < 5) {
+    if (blueIndex < NB_ACTION) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Pause') {
@@ -809,9 +818,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (found == false) {
-        var index = blueActionArray.length + 1;
-        document.getElementById("box" + index + "Blue").innerHTML = "";
-        document.getElementById("box" + index + "Blue").style.backgroundImage = "url('../images/pause-bleu.png')";
+        blueIndex++;
+        document.getElementById("box" + blueIndex + "Blue").innerHTML = "";
+        document.getElementById("box" + blueIndex + "Blue").style.backgroundImage = "url('../images/pause-bleu.png')";
         blueActionArray.push('Pause');
         document.getElementById("boxPauseBlue").style.backgroundImage = "none";
       }
