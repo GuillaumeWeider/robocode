@@ -82,12 +82,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           command.westX2(robot);
         break;
         case 'Repel':
-          if(robot.color = "red") {
-            command.repel(blueRobot);
-          }
-          else {
-            command.repel(redRobot);
-          }
+          command.repel(robot);
         break;
         case 'Pause':
           command.sleep(robot);
@@ -205,17 +200,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
       robot.moveForward();
     }
 
-    repel(opponent_robot) {
+    repel(robot) {
 
-      if (opponent_robot.team == 'red') {
-        opponent_robot.x--;
-        if (opponent_robot.x < 0) {
-          opponent_robot.x = 0;
+      if(robot.color == 'blue') {
+        redRobot.x--;
+        if (redRobot.x < 0) {
+          redRobot.x = 0;
         }
-      } else {
-        opponent_robot.x++;
-        if (GRID_SIZE <= opponent_robot.x) {
-          opponent_robot.x = GRID_SIZE - 1;
+      }
+      else {
+        blueRobot.x++;
+        if (GRID_SIZE <= blueRobot.x) {
+          blueRobot.x = GRID_SIZE - 1;
         }
       }
     }
