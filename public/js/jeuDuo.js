@@ -389,7 +389,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (turn % 2 == 0) {
           //turn pair
           clearRedAction();
-          alert("Début des hostilités");
           game.play("blue");
         } else {
           //turn impair
@@ -423,7 +422,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         } else {
           //turn impair
           clearBlueAction();
-          alert("Début des hostilités");
           game.play("red");
         }
 
