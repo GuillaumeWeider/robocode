@@ -77,7 +77,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
           command.westX2(robot);
         break;
         case 'Repel':
-          command.repel(robot);
+          if(robot.color = "red") {
+            command.repel(blueRobot);
+          }
+          else {
+            command.repel(redRobot);
+          }
         break;
         case 'Pause':
           command.sleep(robot);
@@ -90,9 +95,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         break;
         case 'Cancel':
           command.cancel(robot);
-        break;
-        case 'X2':
-          command.x2(robot);
         break;
       }
 
@@ -200,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     repel(opponent_robot) {
 
-      if (opponent_robot.team == 'blue') {
+      if (opponent_robot.team == 'red') {
         opponent_robot.x--;
         if (opponent_robot.x < 0) {
           opponent_robot.x = 0;
@@ -226,10 +228,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     cancel() {
-
-    }
-
-    x2() {
 
     }
 
@@ -719,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepeatRed").onclick = function() {
-    if (redIndex < NB_ACTION && redActionArray.length != 0) {
+    if (redIndex < NB_ACTION && redIndex != 0) {
       var found = false;
       for (i = 0; i < redActionArray.length; i++) {
         if (redActionArray[i] == 'Repeat') {
@@ -917,7 +915,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   document.getElementById("boxRepeatBlue").onclick = function() {
-    if (blueIndex < NB_ACTION && blueActionArray.length != 0) {
+    if (blueIndex < NB_ACTION && blueIndex != 0) {
       var found = false;
       for (i = 0; i < blueActionArray.length; i++) {
         if (blueActionArray[i] == 'Repeat') {
