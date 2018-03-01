@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
+  const NB_FLAG_TEAM = 4;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
@@ -16,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var blueActionArray = [];
   var blueIndex = 0;
 
+  var redFlag = [];
+  var blueFlag = [];
+
   var game;
   var command;
   var redRobot;
@@ -27,7 +31,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     start() {
-      spawnFlags(topPositionArray, bottomPositionArray)
+      spawnFlag(topPositionArray, 0);
+      spawnFlag(bottomPositionArray, 2)
       spawnRobot(leftPositionArray, "red");
       spawnRobot(rightPositionArray, "blue");
     }
@@ -260,15 +265,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  function spawnFlags(position, flagArrayIndex) {
+  function spawnFlag(position, flagArrayIndex) {
     var nbRedFlag = flagArrayIndex;
     var nbBlueFlag = flagArrayIndex;
+    var limit = flagArrayIndex + NB_FLAG_TEAM /2;
 
     for (i = 0; i < NB_FLAG_TEAM; i++) {
       var x = Number(position[i].substr(1, 1));
       var y = Number(position[i].substr(0, 1));
 
-      if (nbRedFlag < NB_FLAG_TEAM / 2 && nbBlueFlag < NB_FLAG_TEAM / 2) {
+      if (nbRedFlag < limit && nbBlueFlag < limit) {
         var randomInt = getRandomInt(2);
         if (randomInt == 0) {
           document.getElementById(position[i]).innerHTML = "<div class=\"redFlag\"></div>";
@@ -279,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           blueFlag[nbBlueFlag] = new Flag('blue', x, y);
           nbBlueFlag++;
         }
-      } else if (NB_FLAG_TEAM / 2 <= nbRedFlag) {
+      } else if (limit <= nbRedFlag) {
         document.getElementById(position[i]).innerHTML = "<div class=\"blueFlag\"></div>";
         blueFlag[nbBlueFlag] = new Flag('blue', x, y);
         nbBlueFlag++;
@@ -290,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
   }
-  
+
   function spawnRobot(positionArray, color) {
     var randomInt = getRandomInt(4);
     document.getElementById(positionArray[randomInt]).innerHTML = "<div id=\"robot-" + color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div class=\"body " + color + "\"></div></div>";
