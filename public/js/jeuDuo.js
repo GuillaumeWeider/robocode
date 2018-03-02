@@ -288,10 +288,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    sleep(robot) {
-
-    }
-
     take(robot) {
       if (robot.flag == -1) {
         for (i = 0; i < NB_FLAG_TEAM; i++) {
