@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
   const NB_FLAG_TEAM = 4;
-  const NB_POINT_WIN = 2;
+  const NB_POINT_WIN = 1;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
@@ -94,8 +94,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         clearRedAction();
         restartBlueAction();
         clearBlueAction();
-        console.log("Blue point : " + bluePoint);
-        console.log("Red point : " + redPoint);
         turn++;
       }
     }
@@ -122,9 +120,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
           break;
         case 'Repel':
           command.repel(robot);
-          break;
-        case 'Pause':
-          command.sleep(robot);
           break;
         case 'Take':
           command.take(robot);
@@ -302,10 +297,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    sleep(robot) {
-
-    }
-
     take(robot) {
       if (robot.flag == -1) {
         for (i = 0; i < NB_FLAG_TEAM; i++) {
@@ -355,18 +346,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     isValid() {
       if (this.color == "red") {
         for (i = 0; i < 4; i++) {
-          var x = Number(leftPositionArray[i].substr(1, 1));
-          var y = Number(leftPositionArray[i].substr(0, 1));
+          var x = Number(rightPositionArray[i].substr(1, 1));
+          var y = Number(rightPositionArray[i].substr(0, 1));
           if (this.x == x && this.y == y) {
             this.isScored = true;
             redPoint++;
-            console.log(redPoint);
           }
         }
       } else {
         for (i = 0; i < 4; i++) {
-          var x = Number(rightPositionArray[i].substr(1, 1));
-          var y = Number(rightPositionArray[i].substr(0, 1));
+          var x = Number(leftPositionArray[i].substr(1, 1));
+          var y = Number(leftPositionArray[i].substr(0, 1));
           if (this.x == x && this.y == y) {
             this.isScored = true;
             bluePoint++;
