@@ -762,9 +762,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.getElementById("boxRepeatRed").onclick = function() {
     if (redIndex < NB_ACTION && redIndex != 0) {
       var found = false;
+      var tmp ='tmp';
       for (i = 0; i < redActionArray.length; i++) {
-        if (redActionArray[i] == 'Repeat') {
+        if (redActionArray[i] == tmp) {
           found = true;
+        } else {
+          tmp = redActionArray[i];
         }
       }
       if (found == false) {
@@ -773,6 +776,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         redActionArray[redIndex] = redActionArray[redIndex - 1];
         document.getElementById("boxRepeatRed").style.backgroundImage = "none";
         redIndex++;
+        found = true;
       }
     }
   }
@@ -960,9 +964,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.getElementById("boxRepeatBlue").onclick = function() {
     if (blueIndex < NB_ACTION && blueIndex != 0) {
       var found = false;
+      var tmp ='tmp';
       for (i = 0; i < blueActionArray.length; i++) {
-        if (blueActionArray[i] == 'Repeat') {
+        if (blueActionArray[i] == tmp) {
           found = true;
+        } else {
+          tmp = blueActionArray[i];
         }
       }
       if (found == false) {
