@@ -337,8 +337,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     isValid() {
       if (this.color == "red") {
         for (i = 0; i < 4; i++) {
-          var x = Number(leftPositionArray[i].substr(1, 1));
-          var y = Number(leftPositionArray[i].substr(0, 1));
+          var x = Number(rightPositionArray[i].substr(1, 1));
+          var y = Number(rightPositionArray[i].substr(0, 1));
           if (this.x == x && this.y == y) {
             this.isScored = true;
             redPoint++;
@@ -347,8 +347,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       } else {
         for (i = 0; i < 4; i++) {
-          var x = Number(rightPositionArray[i].substr(1, 1));
-          var y = Number(rightPositionArray[i].substr(0, 1));
+          var x = Number(leftPositionArray[i].substr(1, 1));
+          var y = Number(leftPositionArray[i].substr(0, 1));
           if (this.x == x && this.y == y) {
             this.isScored = true;
             bluePoint++;
