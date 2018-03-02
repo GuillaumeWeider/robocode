@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (this.flag == -1){
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       }
-      else {
+      else {  
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       }
 
