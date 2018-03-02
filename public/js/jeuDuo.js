@@ -56,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         blueRobot.clean();
         this.playAction(redRobot, redActionArray[index]);
         this.playAction(blueRobot, blueActionArray[index]);
+        for ( i = 0 ; i < NB_FLAG_TEAM ; i++) {
+          redFlag[i].refresh();
+          blueFlag[i].refresh();
+        }
         redRobot.refresh();
         blueRobot.refresh();
       }
@@ -64,6 +68,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         redRobot.clean();
         this.playAction(blueRobot, blueActionArray[index]);
         this.playAction(redRobot, redActionArray[index]);
+        for ( i = 0 ; i < NB_FLAG_TEAM ; i++) {
+          redFlag[i].refresh();
+          blueFlag[i].refresh();
+        }
         blueRobot.refresh();
         redRobot.refresh();
       }
@@ -176,13 +184,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       }
       else {
-        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"><div class=\"" + this.color + "Flag\"></div></div></div>";
-        if(this.color == "red") {
-          document.getElementById(redFlag[this.flag].y + '' + redFlag[this.flag].x).innerHTML = "";
-        }
-        else {
-          document.getElementById(blueFlag[this.flag].y + '' + blueFlag[this.flag].x).innerHTML = "";
-        }
+        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       }
 
       switch (this.direction) {
@@ -262,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     take(robot) {
-      if(robot.carryFlag == false){
+      if(robot.flag == -1){
         for (i = 0 ; i < NB_FLAG_TEAM ; i++){
             if (robot.color = "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y){
               redFlag[i].isOwned = true;
@@ -288,6 +290,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.x = x;
       this.y = y;
       this.isOwned = false;
+    }
+
+    refresh(){
+      if(!(this.x == redRobot.x && this.y == redRobot.y) || !(this.x == blueRobot.x && this.y == blueRobot.y)){
+        document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"" + this.color + "Flag\"></div>";
+      }
     }
 
   }
