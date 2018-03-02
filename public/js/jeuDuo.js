@@ -42,20 +42,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     play(turnStarter, index) {
+      for (i = 0 ; i < NB_ACTION ; i++){
+        if(redActionArray[i] == "Cancel"){
+          blueActionArray[i] = "";
+        }
+        if(blueActionArray[i] == "Cancel") {
+          redActionArray[i] = "";
+        }
+      }
+
       if(turnStarter == "red"){
+        redRobot.clean();
+        blueRobot.clean();
         this.playAction(redRobot, redActionArray[index]);
-        redRobot.refresh();
         this.playAction(blueRobot, blueActionArray[index]);
+        redRobot.refresh();
         blueRobot.refresh();
       }
       else{
+        blueRobot.clean();
+        redRobot.clean();
         this.playAction(blueRobot, blueActionArray[index]);
-        blueRobot.refresh();
         this.playAction(redRobot, redActionArray[index]);
+        blueRobot.refresh();
         redRobot.refresh();
       }
       cptr++;
-      if(cptr > 4){
+      if(NB_ACTION <= cptr){
         clearInterval(intrvl1);
         clearInterval(intrvl2);
         cptr = 0;
@@ -152,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     refresh() {
-      // a modifier pour ne bouger que l'entiter html robot
       document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       switch (this.direction) {
         case 'north':
@@ -168,6 +180,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("robot-" + this.color).style.transform = "rotate(180deg)";
           break;
       }
+    }
+
+    clean(){
+      document.getElementById(this.y + '' + this.x).innerHTML = "";
     }
 
   }
@@ -396,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearRedAction();
-          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 2000);
+          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 1000);
 
           setTimeout(function(){
             $("#infoAction").css("display", "none").hide().fadeOut();
@@ -404,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             document.getElementById("info").style.background = "#e66465";
             $("#redAction").css("display", "flex").hide().fadeIn();
             $("#redChoice").css("display", "flex").hide().fadeIn();
-          }, 10000);
+          }, 5000);
 
         } else {
           //turn impair
@@ -444,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearBlueAction();
-          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 2000);
+          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 1000);
 
           setTimeout(function(){
             $("#infoAction").css("display", "none").hide().fadeOut();
@@ -452,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             document.getElementById("info").style.background = "#74b9ff";
             $("#blueAction").css("display", "flex").hide().fadeIn();
             $("#blueChoice").css("display", "flex").hide().fadeIn();
-          }, 10000);
+          }, 5000);
 
         }
 
