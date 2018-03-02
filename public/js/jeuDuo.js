@@ -150,7 +150,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     printWinner(winner) {
-      //effacer le choxi des action et afficher en plein milieu le gagnant
+      //effacer le choix des action et afficher en plein milieu le gagnant
+      $("#redAction").css("display", "none").hide().fadeOut();
+      $("#redChoice").css("display", "none").hide().fadeOut();
+      $("#blueAction").css("display", "none").hide().fadeOut();
+      $("#blueChoice").css("display", "none").hide().fadeOut();
+      $("#infoChoice").css("display", "none").hide().fadeOut();
+      $("#infoAction").css("display", "none").hide().fadeOut();
+      $("#infoWin").css("display", "inline").hide().fadeIn();
+      if(winner == 'red'){
+        document.getElementById("info").style.background = "#e66465";
+      } else if ( winner == 'blue') {
+        document.getElementById("info").style.background = "#74b9ff";
+      } else {
+        document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
+      }
       setTimeout(function() {
         window.location.replace("../index.html");
       }, 10000);
@@ -515,11 +529,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }, 500);
 
           setTimeout(function() {
-            $("#infoAction").css("display", "none").hide().fadeOut();
-            $("#infoChoice").css("display", "inline").hide().fadeIn();
-            document.getElementById("info").style.background = "#e66465";
-            $("#redAction").css("display", "flex").hide().fadeIn();
-            $("#redChoice").css("display", "flex").hide().fadeIn();
+            if(game.winner == "none"){
+              $("#infoAction").css("display", "none").hide().fadeOut();
+              $("#infoChoice").css("display", "inline").hide().fadeIn();
+              document.getElementById("info").style.background = "#e66465";
+              $("#redAction").css("display", "flex").hide().fadeIn();
+              $("#redChoice").css("display", "flex").hide().fadeIn();
+            }
           }, 2500);
 
         } else {
@@ -565,11 +581,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }, 500);
 
           setTimeout(function() {
-            $("#infoAction").css("display", "none").hide().fadeOut();
-            $("#infoChoice").css("display", "inline").hide().fadeIn();
-            document.getElementById("info").style.background = "#74b9ff";
-            $("#blueAction").css("display", "flex").hide().fadeIn();
-            $("#blueChoice").css("display", "flex").hide().fadeIn();
+            if(game.winner == "none"){
+              $("#infoAction").css("display", "none").hide().fadeOut();
+              $("#infoChoice").css("display", "inline").hide().fadeIn();
+              document.getElementById("info").style.background = "#74b9ff";
+              $("#blueAction").css("display", "flex").hide().fadeIn();
+              $("#blueChoice").css("display", "flex").hide().fadeIn();
+            }
           }, 2500);
 
         }

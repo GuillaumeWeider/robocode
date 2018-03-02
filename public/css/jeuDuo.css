@@ -32,6 +32,10 @@
   display: none;
 }
 
+#infoWin {
+  display: none;
+}
+
 /* columns */
 
 #columnBlue, #columnRed {
