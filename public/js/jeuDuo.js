@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var blueActionArray = [];
   var blueIndex = 0;
 
-  var redPoint = 1;
+  var redPoint = 0;
   var bluePoint = 0;
 
   var redFlag = [];
@@ -137,13 +137,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     isWin() {
-      if (2 <= redPoint && 2 <= bluePoint) {
+      if (NB_POINT_WIN <= redPoint && NB_POINT_WIN <= bluePoint) {
         game.winner = "equality";
         game.finish = true;
-      } else if (2 <= redPoint) {
+      } else if (NB_POINT_WIN <= redPoint) {
         game.winner = "red";
         game.finish = true;
-      } else if (2 <= bluePoint) {
+      } else if (NB_POINT_WIN <= bluePoint) {
         game.winner = "blue";
         game.finish = true;
       }
