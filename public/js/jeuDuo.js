@@ -173,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.x = x;
       this.y = y;
       this.direction = direction;
-      this.action = new Array();
       this.flag = -1;
     }
 
