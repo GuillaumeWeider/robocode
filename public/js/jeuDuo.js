@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.playAction(blueRobot, blueActionArray[index]);
         this.playAction(redRobot, redActionArray[index]);
         for ( i = 0 ; i < NB_FLAG_TEAM ; i++) {
-          redFlag[i].refresh();
           blueFlag[i].refresh();
+          redFlag[i].refresh();
         }
         blueRobot.refresh();
         redRobot.refresh();
@@ -176,15 +176,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     orientate(direction) {
-      this.direction = direction
+      this.direction = direction;
     }
 
     refresh() {
       if (this.flag == -1){
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
       }
-      else {  
-        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
+      else {
+        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"><div class=\"" + this.color + "Flag\"></div></div></div>";
       }
 
       switch (this.direction) {
@@ -266,11 +266,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     take(robot) {
       if(robot.flag == -1){
         for (i = 0 ; i < NB_FLAG_TEAM ; i++){
-            if (robot.color = "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y){
+            if (robot.color == "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y){
               redFlag[i].isOwned = true;
               robot.flag = i;
             }
-            if (robot.color = "blue" && blueFlag[i].x == robot.x && blueFlag[i].y == robot.y){
+            if (robot.color == "blue" && blueFlag[i].x == robot.x && blueFlag[i].y == robot.y){
               blueFlag[i].isOwned = true;
               robot.flag = i;
             }
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     refresh(){
-      if(!(this.x == redRobot.x && this.y == redRobot.y) || !(this.x == blueRobot.x && this.y == blueRobot.y)){
+      if(this.isOwned == false && !(this.x == redRobot.x && this.y == redRobot.y) && !(this.x == blueRobot.x && this.y == blueRobot.y)){
         document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"" + this.color + "Flag\"></div>";
       }
     }
@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearRedAction();
-          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 1000);
+          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 500);
 
           setTimeout(function(){
             $("#infoAction").css("display", "none").hide().fadeOut();
@@ -455,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             document.getElementById("info").style.background = "#e66465";
             $("#redAction").css("display", "flex").hide().fadeIn();
             $("#redChoice").css("display", "flex").hide().fadeIn();
-          }, 5000);
+          }, 2500);
 
         } else {
           //turn impair
@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearBlueAction();
-          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 1000);
+          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 500);
 
           setTimeout(function(){
             $("#infoAction").css("display", "none").hide().fadeOut();
@@ -503,7 +503,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             document.getElementById("info").style.background = "#74b9ff";
             $("#blueAction").css("display", "flex").hide().fadeIn();
             $("#blueChoice").css("display", "flex").hide().fadeIn();
-          }, 5000);
+          }, 2500);
 
         }
 
