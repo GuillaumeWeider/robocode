@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
   const NB_FLAG_TEAM = 4;
-  const NB_POINT_WIN = 1;
+  const NB_POINT_WIN = 2;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
