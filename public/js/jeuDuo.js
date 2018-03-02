@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
   const NB_FLAG_TEAM = 4;
+  const NB_POINT_WIN = 2;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
@@ -20,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var blueActionArray = [];
   var blueIndex = 0;
 
+  var redPoint = 1;
+  var bluePoint = 0;
+
   var redFlag = [];
   var blueFlag = [];
 
@@ -31,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   class Game {
     constructor() {
       this.finish = false;
+      this.winner = "none";
     }
 
     start() {
@@ -42,41 +47,46 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     play(turnStarter, index) {
-      for (i = 0 ; i < NB_ACTION ; i++){
-        if(redActionArray[i] == "Cancel"){
+      for (i = 0; i < NB_ACTION; i++) {
+        if (redActionArray[i] == "Cancel") {
           blueActionArray[i] = "";
         }
-        if(blueActionArray[i] == "Cancel") {
+        if (blueActionArray[i] == "Cancel") {
           redActionArray[i] = "";
         }
       }
 
-      if(turnStarter == "red"){
+      if (turnStarter == "red") {
         redRobot.clean();
         blueRobot.clean();
         this.playAction(redRobot, redActionArray[index]);
         this.playAction(blueRobot, blueActionArray[index]);
-        for ( i = 0 ; i < NB_FLAG_TEAM ; i++) {
+        for (i = 0; i < NB_FLAG_TEAM; i++) {
           redFlag[i].refresh();
           blueFlag[i].refresh();
         }
         redRobot.refresh();
         blueRobot.refresh();
-      }
-      else{
+      } else {
         blueRobot.clean();
         redRobot.clean();
         this.playAction(blueRobot, blueActionArray[index]);
         this.playAction(redRobot, redActionArray[index]);
-        for ( i = 0 ; i < NB_FLAG_TEAM ; i++) {
+        for (i = 0; i < NB_FLAG_TEAM; i++) {
           blueFlag[i].refresh();
           redFlag[i].refresh();
         }
         blueRobot.refresh();
         redRobot.refresh();
       }
+
+      game.isWin();
+      if (game.finish == true) {
+          game.printWinner(game.winner);
+      }
+
       cptr++;
-      if(NB_ACTION <= cptr){
+      if (NB_ACTION <= cptr) {
         clearInterval(intrvl1);
         clearInterval(intrvl2);
         cptr = 0;
@@ -84,44 +94,66 @@ document.addEventListener("DOMContentLoaded", function(event) {
         clearRedAction();
         restartBlueAction();
         clearBlueAction();
+        console.log("Blue point : " + bluePoint);
+        console.log("Red point : " + redPoint);
         turn++;
       }
     }
 
     playAction(robot, action) {
-      switch(action){
+      switch (action) {
         case 'North':
           command.north(robot);
-        break;
+          break;
         case 'South':
           command.south(robot);
-        break;
+          break;
         case 'East':
           command.east(robot);
-        break;
+          break;
         case 'West':
           command.west(robot);
-        break;
+          break;
         case 'EastX2':
           command.eastX2(robot);
-        break;
+          break;
         case 'WestX2':
           command.westX2(robot);
-        break;
+          break;
         case 'Repel':
           command.repel(robot);
-        break;
+          break;
         case 'Pause':
           command.sleep(robot);
-        break;
+          break;
         case 'Take':
           command.take(robot);
-        break;
+          break;
         case 'Drop':
           command.drop(robot);
-        break;
+          break;
       }
 
+    }
+
+    isWin() {
+      if (2 <= redPoint && 2 <= bluePoint) {
+        game.winner = "equality";
+        game.finish = true;
+      } else if (2 <= redPoint) {
+        game.winner = "red";
+        game.finish = true;
+      } else if (2 <= bluePoint) {
+        game.winner = "blue";
+        game.finish = true;
+      }
+    }
+
+    printWinner(winner) {
+      //effacer le choxi des action et afficher en plein milieu le gagnant
+      setTimeout(function() {
+        window.location.replace("../index.html");
+      }, 10000);
     }
 
   }
@@ -167,8 +199,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (this.color == "red") {
           redFlag[this.flag].x = this.x;
           redFlag[this.flag].y = this.y;
-        }
-        else {
+        } else {
           blueFlag[this.flag].x = this.x;
           blueFlag[this.flag].y = this.y;
         }
@@ -180,10 +211,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     refresh() {
-      if (this.flag == -1){
+      if (this.flag == -1) {
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
-      }
-      else {
+      } else {
         document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"><div class=\"" + this.color + "Flag\"></div></div></div>";
       }
 
@@ -203,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    clean(){
+    clean() {
       document.getElementById(this.y + '' + this.x).innerHTML = "";
     }
 
@@ -245,13 +275,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     repel(robot) {
 
-      if(robot.color == 'blue') {
+      if (robot.color == 'blue') {
         redRobot.x--;
         if (redRobot.x < 0) {
           redRobot.x = 0;
         }
-      }
-      else {
+      } else {
         blueRobot.x++;
         if (GRID_SIZE <= blueRobot.x) {
           blueRobot.x = GRID_SIZE - 1;
@@ -264,21 +293,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     take(robot) {
-      if(robot.flag == -1){
-        for (i = 0 ; i < NB_FLAG_TEAM ; i++){
-            if (robot.color == "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y){
-              redFlag[i].isOwned = true;
-              robot.flag = i;
-            }
-            if (robot.color == "blue" && blueFlag[i].x == robot.x && blueFlag[i].y == robot.y){
-              blueFlag[i].isOwned = true;
-              robot.flag = i;
-            }
+      if (robot.flag == -1) {
+        for (i = 0; i < NB_FLAG_TEAM; i++) {
+          if (robot.color == "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y && redFlag[i].isScored == false) {
+            redFlag[i].isOwned = true;
+            robot.flag = i;
+          }
+          if (robot.color == "blue" && blueFlag[i].x == robot.x && blueFlag[i].y == robot.y && blueFlag[i].isScored == false) {
+            blueFlag[i].isOwned = true;
+            robot.flag = i;
           }
         }
       }
+    }
 
     drop(robot) {
+      if (robot.flag != -1) {
+        if (robot.color == "red") {
+          redFlag[robot.flag].isOwned = false;
+          redFlag[robot.flag].isValid();
+        } else {
+          blueFlag[robot.flag].isOwned = false;
+          blueFlag[robot.flag].isValid();
+        }
+        robot.flag = -1;
+      }
 
     }
 
@@ -290,25 +329,49 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.x = x;
       this.y = y;
       this.isOwned = false;
+      this.isScored = false;
     }
 
-    refresh(){
-      if(this.isOwned == false && !(this.x == redRobot.x && this.y == redRobot.y) && !(this.x == blueRobot.x && this.y == blueRobot.y)){
+    refresh() {
+      if (this.isOwned == false && !(this.x == redRobot.x && this.y == redRobot.y) && !(this.x == blueRobot.x && this.y == blueRobot.y) && this.isScored == false) {
         document.getElementById(this.y + '' + this.x).innerHTML = "<div class=\"" + this.color + "Flag\"></div>";
+      }
+    }
+
+    isValid() {
+      if (this.color == "red") {
+        for (i = 0; i < 4; i++) {
+          var x = Number(leftPositionArray[i].substr(1, 1));
+          var y = Number(leftPositionArray[i].substr(0, 1));
+          if (this.x == x && this.y == y) {
+            this.isScored = true;
+            redPoint++;
+            console.log(redPoint);
+          }
+        }
+      } else {
+        for (i = 0; i < 4; i++) {
+          var x = Number(rightPositionArray[i].substr(1, 1));
+          var y = Number(rightPositionArray[i].substr(0, 1));
+          if (this.x == x && this.y == y) {
+            this.isScored = true;
+            bluePoint++;
+          }
+        }
       }
     }
 
   }
 
-  function restartBlueAction(){
-    for (i = 0 ; i < NB_ACTION ; i++){
+  function restartBlueAction() {
+    for (i = 0; i < NB_ACTION; i++) {
       blueActionArray[i] = "";
     }
     blueIndex = 0;
   }
 
-  function restartRedAction(){
-    for (i = 0 ; i < NB_ACTION ; i++){
+  function restartRedAction() {
+    for (i = 0; i < NB_ACTION; i++) {
       redActionArray[i] = "";
     }
     redIndex = 0;
@@ -321,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function spawnFlag(position, flagArrayIndex) {
     var nbRedFlag = flagArrayIndex;
     var nbBlueFlag = flagArrayIndex;
-    var limit = flagArrayIndex + NB_FLAG_TEAM /2;
+    var limit = flagArrayIndex + NB_FLAG_TEAM / 2;
 
     for (i = 0; i < NB_FLAG_TEAM; i++) {
       var x = Number(position[i].substr(1, 1));
@@ -447,9 +510,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearRedAction();
-          intrvl2 = setInterval(function(){ game.play("blue", cptr); }, 500);
+          intrvl2 = setInterval(function() {
+            game.play("blue", cptr);
+          }, 500);
 
-          setTimeout(function(){
+          setTimeout(function() {
             $("#infoAction").css("display", "none").hide().fadeOut();
             $("#infoChoice").css("display", "inline").hide().fadeIn();
             document.getElementById("info").style.background = "#e66465";
@@ -495,9 +560,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("info").style.background = "linear-gradient(to right, #74b9ff, #e66465)";
 
           clearBlueAction();
-          intrvl1 = setInterval(function(){ game.play("red", cptr); }, 500);
+          intrvl1 = setInterval(function() {
+            game.play("red", cptr);
+          }, 500);
 
-          setTimeout(function(){
+          setTimeout(function() {
             $("#infoAction").css("display", "none").hide().fadeOut();
             $("#infoChoice").css("display", "inline").hide().fadeIn();
             document.getElementById("info").style.background = "#74b9ff";
