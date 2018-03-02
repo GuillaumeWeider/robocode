@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const GRID_SIZE = 9;
   const NB_ACTION = 5;
   const NB_FLAG_TEAM = 4;
-  const NB_POINT_WIN = 2;
+  const NB_POINT_WIN = 1;
 
   var topPositionArray = ["03", "04", "05", "14"];
   var bottomPositionArray = ["74", "83", "84", "85"];
@@ -94,8 +94,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         clearRedAction();
         restartBlueAction();
         clearBlueAction();
-        console.log("Blue point : " + bluePoint);
-        console.log("Red point : " + redPoint);
         turn++;
       }
     }
@@ -122,9 +120,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
           break;
         case 'Repel':
           command.repel(robot);
-          break;
-        case 'Pause':
-          command.sleep(robot);
           break;
         case 'Take':
           command.take(robot);
@@ -356,7 +351,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
           if (this.x == x && this.y == y) {
             this.isScored = true;
             redPoint++;
-            console.log(redPoint);
           }
         }
       } else {
