@@ -112,9 +112,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         case 'Drop':
           command.drop(robot);
         break;
-        case 'Cancel':
-          command.cancel(robot);
-        break;
       }
 
     }
@@ -128,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.y = y;
       this.direction = direction;
       this.action = new Array();
-      this.flag = null;
+      this.flag = -1;
     }
 
     moveForward() {
@@ -158,6 +155,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }
           break;
       }
+      if (this.flag != -1) {
+        if (this.color == "red") {
+          redFlag[this.flag].x = this.x;
+          redFlag[this.flag].y = this.y;
+        }
+        else {
+          blueFlag[this.flag].x = this.x;
+          blueFlag[this.flag].y = this.y;
+        }
+      }
     }
 
     orientate(direction) {
@@ -165,7 +172,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     refresh() {
-      document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
+      if (this.flag == -1){
+        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"></div></div>";
+      }
+      else {
+        document.getElementById(this.y + '' + this.x).innerHTML = "<div id=\"robot-" + this.color + "\"><div class=\"wheel\"></div><div class=\"wheel\"></div><div id=\"inside-" + this.color + "\"  class=\"body " + this.color + "\"><div class=\"" + this.color + "Flag\"></div></div></div>";
+        if(this.color == "red") {
+          document.getElementById(redFlag[this.flag].y + '' + redFlag[this.flag].x).innerHTML = "";
+        }
+        else {
+          document.getElementById(blueFlag[this.flag].y + '' + blueFlag[this.flag].x).innerHTML = "";
+        }
+      }
+
       switch (this.direction) {
         case 'north':
           document.getElementById("robot-" + this.color).style.transform = "rotate(-90deg)";
@@ -243,14 +262,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     take(robot) {
-      //Pour l'affichage quand il le porte sinon quand il passe dessus on ne pourra pas l'afficher -> document.getElementById("inside-" + color).innerHTML = "<div class=\"" + color + "Flag\"></div>";
-    }
+      if(robot.carryFlag == false){
+        for (i = 0 ; i < NB_FLAG_TEAM ; i++){
+            if (robot.color = "red" && redFlag[i].x == robot.x && redFlag[i].y == robot.y){
+              redFlag[i].isOwned = true;
+              robot.flag = i;
+            }
+            if (robot.color = "blue" && blueFlag[i].x == robot.x && blueFlag[i].y == robot.y){
+              blueFlag[i].isOwned = true;
+              robot.flag = i;
+            }
+          }
+        }
+      }
 
     drop(robot) {
-
-    }
-
-    cancel() {
 
     }
 
@@ -261,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.color = color;
       this.x = x;
       this.y = y;
+      this.isOwned = false;
     }
 
   }
